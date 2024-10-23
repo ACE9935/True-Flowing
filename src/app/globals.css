@@ -1,0 +1,33 @@
+:root {
+  --primary-color:#1e1e21;
+  --secondary-color: #ffffff;
+  --title-secondary: #b4bac3;
+  --content-secondary: #d5d5d5;
+  --primary-blue:#97a2ff;
+  --primary-blue-dark:#666dab;
+  --primary-blue-color:63, 78, 128;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@keyframes fadeInOut {
+  0%, 100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.fade-animation {
+  animation: fadeInOut 2s infinite;
+}

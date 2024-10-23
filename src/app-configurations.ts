@@ -1,5 +1,6 @@
 export const configurations = {
   appName: "True Flowing",
+  developer:"Anas ELMOUDEN",
   bluetheme: "rgb(94, 123, 238)",
   host: "https://true-flowing.vercel.app",
   staticQrCode: "https://firebasestorage.googleapis.com/v0/b/abt-digital.appspot.com/o/40415-bdc-qr-code.webp?alt=media&token=524eddee-f350-4466-a8ad-f2759bb0c9c5",

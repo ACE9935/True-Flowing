@@ -110,7 +110,7 @@ function QrcodeEditor({ type }: { type?: "basic" | "premium" | string | null }) 
           id: qrCodeId,
           meta: {
             ...qrCodeState.meta,
-            logoImg: logoUrl || configurations.userImg,
+            logoImg: logoUrl || user?.photoUrl,
             desktopImg: desktopImgUrl || configurations.client.desktopImg,
           }
         } : {

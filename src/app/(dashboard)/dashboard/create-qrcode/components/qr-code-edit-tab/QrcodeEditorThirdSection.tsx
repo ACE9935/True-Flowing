@@ -6,12 +6,14 @@ import { FormEvent, useState } from "react";
 import { setQRCodeMetaReviewLinks } from "../../qr-code-state/qr-code-state";
 import { Alert } from "@mui/material";
 import { TransitionalComponent } from "./QrcodeEditor";
+import { useUser } from "@/context/authContext";
 
 function QrcodeEditorThirdSection({ handlerForward, handlerPrevious }: TransitionalComponent) {
 
     const dispatch = useAppDispatch();
     const qrCodeState = useAppSelector(state => state.qrCode);
     const [errors, setErrors] = useState(false);
+    const {user,updateUser}=useUser()
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
@@ -29,7 +31,7 @@ function QrcodeEditorThirdSection({ handlerForward, handlerPrevious }: Transitio
                 <img src={
                     typeof qrCodeState.meta.logoImg === "string" ?
                         qrCodeState.meta.logoImg :
-                        qrCodeState.meta.logoImg ? URL.createObjectURL(qrCodeState.meta.logoImg) : configurations.userImg
+                        qrCodeState.meta.logoImg ? URL.createObjectURL(qrCodeState.meta.logoImg) : user?.photoUrl
                 } className="w-auto h-[6rem]" />
                 {errors ? <Alert severity="error">Please provide a link to receive reviews</Alert> : <></>}
                 <div className="flex flex-col gap-2 w-full max-w-[22rem]">

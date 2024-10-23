@@ -14,6 +14,7 @@ import { TransitionalComponent } from "./QrcodeEditor";
 import AppSpinner from "@/components/AppSpinner";
 import { SpinWheelOption } from "@/types";
 import dynamic from "next/dynamic";
+import { useUser } from "@/context/authContext";
 const Wheel = dynamic(() => import('react-custom-roulette').then(mod => mod.Wheel), { ssr: false });
 
 function QrcodeEditorFourthSection({ handlerPrevious, handlerForward, isLoading }: TransitionalComponent) {
@@ -25,6 +26,7 @@ function QrcodeEditorFourthSection({ handlerPrevious, handlerForward, isLoading 
   const dispatch = useAppDispatch();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isExploding, setIsExploding] = useState(false);
+  const {user,updateUser}=useUser()
 
   const hasWon = qrCodeState.meta.spinWheelData.options[prizeNumber].option.length;
 
@@ -38,7 +40,7 @@ function QrcodeEditorFourthSection({ handlerPrevious, handlerForward, isLoading 
         <img src={
           typeof qrCodeState.meta.logoImg == "string" ?
           qrCodeState.meta.logoImg :
-          qrCodeState.meta.logoImg ? URL.createObjectURL(qrCodeState.meta.logoImg) : configurations.userImg
+          qrCodeState.meta.logoImg ? URL.createObjectURL(qrCodeState.meta.logoImg) : user?.photoUrl
         } className="w-auto h-[6rem]" />
         
         <Modal open={isOpen} onClose={onClose} disableAutoFocus>

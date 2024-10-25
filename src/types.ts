@@ -17,6 +17,13 @@ export interface AutomatedNotification {
     content:EmailInterface | SMSInterface 
 }
 
+export interface Notification {
+    id:string
+    sentDate:string
+    type:"Email" | "SMS"
+    content:EmailInterface | SMSInterface 
+}
+
 export interface EmailInterface {
     sender: string
     subject: string
@@ -45,6 +52,7 @@ export interface User {
     email:string
     acceptPlcs:boolean
     automatedNotifications: AutomatedNotification[]
+    notifications:Notification[]
 }
 
 export interface InitialUser{

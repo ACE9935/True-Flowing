@@ -66,7 +66,7 @@ export const doCreateUserWithEmailAndPassword = async ({userName,name,email, pwd
 
     // Update user profile with name
     if (auth.currentUser) {
-      const data:User={userName,name,email,phone,acceptPlcs,id:auth.currentUser.uid,emailVerified:false,photoUrl:configurations.userImg,qrCodes:[],clients:[],clientEmails:[],clientPhoneNumbers:[],automatedNotifications:[],winnerClients:[]}
+      const data:User={userName,name,email,phone,acceptPlcs,id:auth.currentUser.uid,emailVerified:false,photoUrl:configurations.userImg,qrCodes:[],clients:[],clientEmails:[],clientPhoneNumbers:[],automatedNotifications:[],winnerClients:[],notifications:[]}
       await updateProfile(auth?.currentUser, { displayName: name,photoURL:data.photoUrl })
             .then(async user=>{
               const newUser=await addUser(data,"Email")
@@ -131,7 +131,7 @@ export const doSignInWithGoogle = async ():Promise<SignUpResponse> => {
   const provider = new GoogleAuthProvider();
   const result = await signInWithPopup(auth, provider);
   const user = result.user;
-  const data:User={name: `User${generateRandomId(6)}`, userName: user.displayName!, email: user.email!, emailVerified: user.emailVerified, id: user.uid, acceptPlcs: true, phone: user.phoneNumber, photoUrl: user.photoURL!, qrCodes: [], clients: [], clientEmails: [], clientPhoneNumbers: [], automatedNotifications: [],winnerClients:[]}
+  const data:User={name: `User${generateRandomId(6)}`, userName: user.displayName!, email: user.email!, emailVerified: user.emailVerified, id: user.uid, acceptPlcs: true, phone: user.phoneNumber, photoUrl: user.photoURL!, qrCodes: [], clients: [], clientEmails: [], clientPhoneNumbers: [], automatedNotifications: [],winnerClients:[],notifications:[]}
   await addUser(data, "Google")
   return { errors: null, status: "OK", method: "google" };      
 };

@@ -34,7 +34,7 @@ const StyledTextArea = styled(ReactQuill)`
    }
 `;
 
-function EmailCustomizerForm({ automate, automateValue, automateType }: { automate: boolean, automateType: string, automateValue: string }) {
+function EmailCustomizerForm({ automate, automateValue, automateType,init }: { init:boolean,automate: boolean, automateType: string, automateValue: string }) {
 
    const [email, setEmail] = useState<EmailInterface>({ sender: "[Brand Name]", subject: "Thank you for your visit at [Brand Name]!", email: "" });
    const [loading, setLoading] = useState(false);
@@ -54,7 +54,8 @@ function EmailCustomizerForm({ automate, automateValue, automateType }: { automa
             automate,
             sender: email.sender,
             automateValue,
-            automateType
+            automateType,
+            init,
          });
          await updateUser();
          console.log('Email sent successfully:', response.data);
@@ -67,7 +68,7 @@ function EmailCustomizerForm({ automate, automateValue, automateType }: { automa
          toast({
             position: 'bottom-left',
             render: () => (
-               <AppToast variant="SUCCESS" title="Email sent" Icon={Check} />
+               <AppToast variant="SUCCESS" title={`${init&&automate?"Email sent & automation process saved":!init&&!automate?"Email sent":!init&&automate?"Automation process saved":"Email sent"}`} Icon={Check} />
             ),
          });
       }
@@ -129,7 +130,7 @@ function EmailCustomizerForm({ automate, automateValue, automateType }: { automa
                         type="submit"
                         disabled={loading}
                      >
-                        <>{loading && <AppSpinner variant="LIGHT" size={25} />}Send<Send/></>
+                        <>{loading && <AppSpinner variant="LIGHT" size={25} />}{`${init?"Send":""}${automate?"/Automate":""}`}<Send/></>
                      </button>
                   </div>
                </form>

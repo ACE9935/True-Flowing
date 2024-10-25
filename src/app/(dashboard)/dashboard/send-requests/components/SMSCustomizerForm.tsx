@@ -11,7 +11,9 @@ import { genericSMS } from "@/app-configurations";
 import axios from 'axios';
 import AppSpinner from "@/components/AppSpinner";
 import { useUser } from "@/context/authContext";
-import { Send } from "@mui/icons-material";
+import { Check, Send } from "@mui/icons-material";
+import AppToast from "@/components/AppToast";
+import { useToast } from "@chakra-ui/react";
 
 const tailwindConfig = resolveConfig(Config);
 const colors = tailwindConfig.theme?.colors as unknown as { [key: string]: string };
@@ -35,6 +37,7 @@ function SMSCustomizerForm({ automate, automateValue, automateType, user }: { au
    const [sms, setSms] = useState<SMSInterface>({ sender: "[Brand Name]", sms: "" });
    const [loading, setLoading] = useState(false);
    const {updateUser}=useUser()
+   const toast = useToast();
 
    const handleSubmit = async (e: React.FormEvent) => {
       e.preventDefault();
@@ -43,10 +46,17 @@ function SMSCustomizerForm({ automate, automateValue, automateType, user }: { au
          // Here, you should include the logic to send the SMS via an API
          const response = await axios.post('/api/send-client-sms', {
             phoneNumbers: user?.clientPhoneNumbers,
-            sender: sms.sender,
+            sender: sms.sender.replace(/\s+/g, ''),
             content: sms.sms,
+            userId:user?.id
          });
          await updateUser();
+         toast({
+            position: 'bottom-left',
+            render: () => (
+               <AppToast variant="SUCCESS" title="SMS sent" Icon={Check} />
+            ),
+         });
          console.log('SMS sent successfully:');
          // Handle success response
       } catch (error) {

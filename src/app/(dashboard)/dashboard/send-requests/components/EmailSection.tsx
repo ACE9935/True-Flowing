@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 
 function EmailSection() {
    const [automate, setAutomate] = useState(false);
+   const [init, setInit] = useState(true);
    const { user, updateUser, loading } = useUser();
    const [automateType, setAutomateType] = useState("Email");
    const [automateValue, setAutomateValue] = useState<AutomateType>("3-day");
@@ -25,6 +26,7 @@ function EmailSection() {
                <label htmlFor="automate-checkbox" className="font-bold text-md pl-2">Enable Automation</label>
             </div>
             {automate && (
+               <div>
                <div className="p-3 border-l-2 mt-1">
                   <StyledSelect
                      value={automateValue}
@@ -35,9 +37,14 @@ function EmailSection() {
                      <MenuItem value={"1-month"}>Every Month</MenuItem>
                      <MenuItem value={"3-month"}>Every 3 Months</MenuItem>
                   </StyledSelect>
+                  <div className="mt-3 flex items-center">
+               <Checkbox disableRipple className="!px-0" id="automate-checkbox" checked={init} onChange={() => setInit(prev => !prev)} color="default" />
+               <label htmlFor="automate-checkbox" className="font-bold text-md pl-2">Send initial message</label>
+               </div>
+               </div>
                </div>
             )}
-            <EmailCustomizerForm automateType={automateType} automate={automate} automateValue={automateValue} />
+            <EmailCustomizerForm automateType={automateType} init={init} automate={automate} automateValue={automateValue} />
          </div>
       </div>
    );

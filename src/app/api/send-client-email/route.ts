@@ -4,15 +4,17 @@ import { sendClientEmail } from "@/utils/sendClientEmail";
 import { AutomatedNotification } from "@/types";
 import getDateAfter from "@/utils/getDateAfter";
 import generateRandomId from "@/utils/generateRandomId";
+import { Notification } from "@/types";
+import { formatDate } from "@/utils/formatDate";
 
 customInitApp();
 
 export async function POST(req: Request): Promise<Response> {
   try {
-    const { emails, emailContent, sender, subject, automate, automateValue, automateType, userId,userName } = await req.json();
+    const { init, emails, emailContent, sender, subject, automate, automateValue, automateType, userId,userName } = await req.json();
 
     // Send the email
-    await sendClientEmail({ emailContent, subject, identifier: emails,sender,userName });
+    if(init) await sendClientEmail({ emailContent, subject, identifier: emails,sender,userName });
 
     // If automate is true, update the user's automated notifications
     if (automate) {
@@ -40,6 +42,30 @@ export async function POST(req: Request): Promise<Response> {
 
       await userDocRef.update({
         automatedNotifications: firestore.FieldValue.arrayUnion(newNotification)
+      });
+    }else{
+      const usersCollection = firestore().collection("users");
+      const userQuery = await usersCollection.where("id", "==", userId).get();
+
+      if (userQuery.empty) {
+        return Response.json({ error: "User not found" });
+      }
+
+      const userDocRef = userQuery.docs[0].ref;
+
+      const newNotification:Notification = {
+        id:generateRandomId(10),
+        type: automateType,
+        content: {
+          sender,
+          subject,
+          email: emailContent,
+        },
+        sentDate:formatDate(new Date())
+      };
+
+      await userDocRef.update({
+        notifications: firestore.FieldValue.arrayUnion(newNotification)
       });
     }
 

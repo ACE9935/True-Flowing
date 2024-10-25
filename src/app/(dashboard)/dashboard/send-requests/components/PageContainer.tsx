@@ -60,7 +60,7 @@ function PageContainer() {
                </div>
                <div>
                   <div className="flex gap-2 justify-center pb-12">
-                     <button onClick={() => setSection("notifications")} className={selectedButtonClass("notifications")}>Scheduled Notifications</button>
+                     <button onClick={() => setSection("notifications")} className={selectedButtonClass("notifications")}>Notifications</button>
                      <button onClick={() => setSection("sms")} className={selectedButtonClass("sms")}>SMS</button>
                      <button onClick={() => setSection("email")} className={selectedButtonClass("email")}>Email</button>
                   </div>

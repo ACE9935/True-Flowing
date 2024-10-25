@@ -1,7 +1,7 @@
 import { AutomateType } from "@/types";
 
 
-export default function getScheduledDate(after: AutomateType): string {
+export default function getScheduledDate(after?: AutomateType): string {
   const currentDate = new Date();
   let scheduledDate = new Date(currentDate);
 
@@ -19,7 +19,7 @@ export default function getScheduledDate(after: AutomateType): string {
       scheduledDate.setMonth(currentDate.getMonth() + 3);
       break;
     default:
-      throw new Error("Invalid AutomateType");
+      break;
   }
 
   const year = scheduledDate.getFullYear();

@@ -1,10 +1,10 @@
 "use client"
 import AppSpinner from "@/components/AppSpinner";
 import AppToast from "@/components/AppToast";
-import { AutomatedNotification, EmailInterface } from "@/types";
+import { AutomatedNotification, EmailInterface, Notification, SMSInterface } from "@/types";
 import getFrequencyInFrench from "@/utils/getFrequencyInFrench";
 import { useDisclosure, useToast } from "@chakra-ui/react";
-import { Check, Email, KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
+import { Check, Email, KeyboardArrowDown, KeyboardArrowUp, Sms } from "@mui/icons-material";
 import { IconButton, Modal } from "@mui/material";
 import { collection, query, where, getDocs, updateDoc, arrayRemove, doc as firestoreDoc } from 'firebase/firestore';
 import { useState } from "react";
@@ -146,6 +146,7 @@ const AutomatedNotificationTabForEmail = ({ notification, order, userId }: { not
             <div>Email-{order}</div>
           </div>
           <div className="flex gap-4 items-center">
+          <div className="font-semibold text-slate-600">Sent every {getFrequencyInFrench(notification.every)}</div>
             <div className="flex gap-2">
               Status: {notification.activated ?
                 <div className="flex items-center">
@@ -157,9 +158,12 @@ const AutomatedNotificationTabForEmail = ({ notification, order, userId }: { not
                   <div className="font-normal text-slate-600 pl-3">Inactive</div>
                 </div>}
             </div>
+            <div className="flex gap-4 items-center">
             <IconButton onClick={() => setExpand(prev => !prev)}>
+              
               {expand ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
             </IconButton>
+            </div>
           </div>
         </div>
         <div className="border-t border-slate-600 py-5">
@@ -189,19 +193,115 @@ const AutomatedNotificationTabForEmail = ({ notification, order, userId }: { not
   );
 }
 
+const NotificationTab = ({ notification, order, userId }: { notification: Notification, order: number, userId: string }) => {
+
+  const [expand, setExpand] = useState(false);
+
+  return (
+    <>
+      <div className={`rounded-lg border-2 bg-white shadow-md p-3 px-5 flex flex-col gap-4 transition-height ${expand ? "h-auto" : "h-[64px]"} overflow-hidden`}>
+        <div className="flex justify-between items-center w-full font-bold">
+          <div className="flex gap-3">
+            {notification.type=="Email"?<Email />:<Sms/>}
+            <div>{notification.type=="Email"?"Email":"SMS"}-{order}</div>
+          </div>
+          <div className="flex gap-4 items-center">
+          <div className="font-normal text-slate-600">Sent on: {notification.sentDate}</div>
+            <IconButton onClick={() => setExpand(prev => !prev)}>
+              {expand ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
+            </IconButton>
+          </div>
+        </div>
+        <div className="border-t border-slate-600 py-5">
+          <div className="text-slate-600 flex gap-4 font-semibold">
+            <div className="border-r border-slate-500 pr-4">Sent on: {notification.sentDate}</div>
+  
+          </div>
+          <div className="mt-4">
+            {notification.type=="Email"&&<div>Subject:<br />
+              <div className="font-bold">{(notification.content as EmailInterface).subject}</div>
+            </div>}
+          </div>
+          <div>
+            {notification.type=="Email"?
+              <div className="mt-4" dangerouslySetInnerHTML={{ __html: (notification.content as EmailInterface).email }} />:
+              <div
+              className="mt-4"
+              dangerouslySetInnerHTML={{ 
+                __html: (notification.content as SMSInterface).sms.replace(/\n/g, '<br />') 
+              }}
+            />
+               
+            }
+            <div className="font-bold mt-2">{(notification.content as EmailInterface|SMSInterface).sender}</div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+
 function AutomatedNotificationsSection() {
-  const { user, updateUser, loading } = useUser();
+
+  const { user } = useUser();
+  let orderX = 0; // Temporary counter for Email notifications
+  let orderY = 0; // Temporary counter for non-Email notifications
 
   return (
     <div>
-      {!user?.automatedNotifications.length?<div className="text-center">No notifications found</div>:
-      <>
-      <h2 className="pb-4 font-bold text-xl">Automated Emails</h2>
-      <div className="flex flex-col gap-3">
-        {user?.automatedNotifications.filter(o => o.type == "Email").map((o, i) => <AutomatedNotificationTabForEmail key={i} userId={user.id} notification={o} order={i + 1} />)}
-      </div></>}
+      {!user?.automatedNotifications.length && !user?.notifications?.length ? (
+        <div className="text-center">No notifications found</div>
+      ) : (
+        <div className="flex flex-col gap-4">
+          <div>
+            <h2 className="pb-4 font-bold text-xl">Automated Notifications</h2>
+            <div className="flex flex-col gap-3">
+              {!user?.automatedNotifications.length ? (
+                <div className="text-center">No notifications found</div>
+              ) : (
+                user?.automatedNotifications
+                  ?.filter((o) => o.type === "Email")
+                  .map((o, i) => (
+                    <AutomatedNotificationTabForEmail
+                      key={i}
+                      userId={user.id}
+                      notification={o}
+                      order={i + 1}
+                    />
+                  ))
+              )}
+            </div>
+          </div>
+          <div>
+            <h2 className="pb-4 font-bold text-xl">Sent notifications</h2>
+            <div className="flex flex-col gap-3">
+              {!user?.notifications?.length ? (
+                <div className="text-center">No notifications found</div>
+              ) : (
+                user?.notifications
+                  ?.slice() // Copy array to avoid mutating original
+                  .reverse()
+                  .map((o: Notification, i) => {
+                    if (o.type === "Email") orderX += 1;
+                    else orderY += 1;
+                    
+                    return (
+                      <NotificationTab
+                        key={i}
+                        userId={user.id}
+                        notification={o}
+                        order={o.type === "Email" ? orderX : orderY}
+                      />
+                    );
+                  })
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
+
 
 export default AutomatedNotificationsSection;

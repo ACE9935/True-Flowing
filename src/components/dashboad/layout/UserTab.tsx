@@ -90,8 +90,8 @@ function UserTab() {
                         Do you really want to delete your account?</p>
 
                     <div className="flex gap-3">
-                        <button className="border-2 border-primary-color font-bold text-black rounded-full p-3 flex gap-2 items-center" onClick={onClose}>Cancel</button>
-                        <button onClick={() => deleteUser(auth.currentUser?.uid!)} className="bg-primary-color font-bold text-white rounded-full p-3 flex gap-2 items-center">{loading && <AppSpinner variant="LIGHT" size={26} />}Delete</button>
+                        <button className="border-2 border-primary-color font-bold text-black rounded-full py-3 flex gap-2 items-center px-5" onClick={onClose}>Cancel</button>
+                        <button onClick={() => deleteUser(auth.currentUser?.uid!)} className="bg-primary-color font-bold text-white rounded-full py-3 px-5 flex gap-2 items-center">{loading && <AppSpinner variant="LIGHT" size={26} />}Delete</button>
                     </div>
                 </div>
             </Modal>

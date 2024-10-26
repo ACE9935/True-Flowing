@@ -111,7 +111,7 @@ return (<Modal open={isOpen} onClose={() => {
             left: '50%',
             transform: 'translate(-50%, -50%)',
         }}
-        className="bg-white rounded-md p-6 flex gap-7 flex-col">
+        className="bg-white rounded-md p-6 flex gap-7 flex-col sm:w-auto w-[90%]">
         <p className="text-xl">
             Do you really want to delete your QR code?</p>
 
@@ -204,7 +204,7 @@ return (<Modal open={isOpen} onClose={() => {
             left: '50%',
             transform: 'translate(-50%, -50%)',
         }}
-        className="bg-white rounded-md p-6 flex gap-7 flex-col">
+        className="bg-white rounded-md p-6 flex gap-7 flex-col sm:w-auto w-[90%]">
         <p className="text-xl">
             Edit the redirect link of your QR code</p>
         <div className="flex flex-col gap-2 w-full max-w-[22rem]">

@@ -146,8 +146,8 @@ const AutomatedNotificationTabForEmail = ({ notification, order, userId }: { not
             <div>Email-{order}</div>
           </div>
           <div className="flex gap-4 items-center">
-          <div className="font-semibold text-slate-600">Sent every {getFrequencyInFrench(notification.every)}</div>
-            <div className="flex gap-2">
+          <div className="font-semibold text-slate-600 text-xs sm:text-sm">Sent every {getFrequencyInFrench(notification.every)}</div>
+            <div className="flex gap-2 text-xs sm:text-sm">
               Status: {notification.activated ?
                 <div className="flex items-center">
                   <div className="rounded-full bg-green-400 w-4 aspect-square"></div>
@@ -206,7 +206,7 @@ const NotificationTab = ({ notification, order, userId }: { notification: Notifi
             <div>{notification.type=="Email"?"Email":"SMS"}-{order}</div>
           </div>
           <div className="flex gap-4 items-center">
-          <div className="font-normal text-slate-600">Sent on: {notification.sentDate}</div>
+          <div className="font-normal text-slate-600 text-xs sm:text-sm">Sent on: {notification.sentDate}</div>
             <IconButton onClick={() => setExpand(prev => !prev)}>
               {expand ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
             </IconButton>

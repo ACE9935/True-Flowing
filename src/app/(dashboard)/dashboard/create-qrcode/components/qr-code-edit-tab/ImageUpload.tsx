@@ -1,13 +1,19 @@
-// ImageUpload.tsx
-"use client"
-import React, { useState, ChangeEvent, useEffect } from 'react';
-import { storage } from '@/firebase/firebase';
-import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
-import { Edit } from '@mui/icons-material';
+"use client";
+import React, { useState, ChangeEvent, useEffect } from "react";
+import { storage } from "@/firebase/firebase";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { Edit } from "@mui/icons-material";
 
-function ImageUpload({setUrl,url,setImage}:{setUrl:(url:string)=>void,url:string,setImage:any}){
+function ImageUpload({
+  setUrl,
+  url,
+  setImage,
+}: {
+  setUrl: (url: string) => void;
+  url: string;
+  setImage: any;
+}) {
   const [image, setImagex] = useState<File | null>(null);
-
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -25,16 +31,17 @@ function ImageUpload({setUrl,url,setImage}:{setUrl:(url:string)=>void,url:string
     const uploadTask = uploadBytesResumable(storageRef, image);
 
     uploadTask.on(
-      'state_changed',
-      snapshot => {
-        const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
-        
+      "state_changed",
+      (snapshot) => {
+        const progress = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
       },
-      error => {
-        console.error('Upload error:', error);
+      (error) => {
+        console.error("Upload error:", error);
       },
       () => {
-        getDownloadURL(uploadTask.snapshot.ref).then(downloadURL => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           setUrl(downloadURL);
         });
       }
@@ -50,15 +57,27 @@ function ImageUpload({setUrl,url,setImage}:{setUrl:(url:string)=>void,url:string
   }, [url]);
 
   return (
-    <div>
-      <input onChange={handleChange} type="file" id="logoInput" className='opacity-0 w-0 h-0'/>
-     <label htmlFor="logoInput" className="rounded-full hover:bg-primary-color hover:text-white transition-all bg-slate-200 p-[0.6rem] py-3 scale-[0.8] cursor-pointer">
-     Edit
-     </label>
+    <div className="flex flex-col items-center justify-center p-2">
+      {/* Image Preview */}
 
+      {/* Hidden Input and Button */}
+      <input
+        onChange={handleChange}
+        type="file"
+        id="logoInput"
+        className="opacity-0 absolute w-0 h-0"
+      />
+      <label
+        htmlFor="logoInput"
+        className="rounded-full flex items-center justify-center hover:bg-primary-color hover:text-white transition-all bg-slate-200 p-3 cursor-pointer"
+      >
+        <Edit fontSize="small" />
+        <span className="ml-1 text-sm">Edit</span>
+      </label>
     </div>
   );
-};
+}
 
 export default ImageUpload;
+
 

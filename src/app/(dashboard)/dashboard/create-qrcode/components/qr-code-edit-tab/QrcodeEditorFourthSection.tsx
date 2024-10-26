@@ -36,7 +36,7 @@ function QrcodeEditorFourthSection({ handlerPrevious, handlerForward, isLoading 
         <h2 className="text-2xl font-bold pb-1">Edit Your Spin Wheel Game</h2>
         <p className="text-slate-600">Customize the slots for a unique experience tailored to your preferences.</p>
       </div>
-      <div className="spin-wheel-display rounded-lg border-2 p-8 flex flex-col items-center gap-2">
+      <div className="spin-wheel-display rounded-lg border-2 p-3 sm:p-8 flex flex-col items-center gap-2">
         <img src={
           typeof qrCodeState.meta.logoImg == "string" ?
           qrCodeState.meta.logoImg :
@@ -111,7 +111,7 @@ function QrcodeEditorFourthSection({ handlerPrevious, handlerForward, isLoading 
       <div className="spin-wheel-editor py-4 flex flex-col gap-4">
         <div className="flex flex-col gap-5 bg-white p-4 rounded-lg border-2">
           <h2 className="text-4xl">Colors</h2>
-          <div className="flex gap-4">
+          <div className="flex flex-col sm:flex-row gap-4">
             <ColorPicker title="Color 1" color={qrCodeState.meta.spinWheelData.bgColors[0]} action={setBgColorOfQRCodeMetaSpinWheel} index={1}/>
             <ColorPicker title="Color 2" color={qrCodeState.meta.spinWheelData.bgColors[1]} action={setBgColorOfQRCodeMetaSpinWheel} index={2}/>
           </div>

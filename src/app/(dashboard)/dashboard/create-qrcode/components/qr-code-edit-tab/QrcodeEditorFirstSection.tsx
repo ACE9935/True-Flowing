@@ -73,7 +73,7 @@ function QrcodeEditorFirstSection({ handler, isLoading }: { handler: () => void,
             disabled={qrCodeState.type == "Premium"}
             placeholder="https://example.com"
             ref={linkInputRef}
-            className="p-1 w-full outline-none disabled:bg-slate-200 bg-transparent border-2 border-gray-300 focus:border-primary-blue"
+            className="p-1 w-full outline-none disabled:bg-slate-200  bg-transparent border-2 border-gray-300 focus:border-primary-blue"
             id='QRCode-text-input'
             value={qrCodeState.type == "Premium" ? qrCodeState.text : qrCodeState.redirectoryLink} 
             onChange={(e) => dispatch(setQRCodeRedicectoryLink(e.target.value))} 
@@ -92,7 +92,7 @@ function QrcodeEditorFirstSection({ handler, isLoading }: { handler: () => void,
         </span>
       </div>
       <div className="flex flex-col gap-4 bg-white p-4 border-2 rounded-lg">
-        <div className="grid grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <div className="items-center flex gap-4">
             <label htmlFor="QRCode-name-input" className="font-bold">Name<span className="text-red-400">*</span></label>
             <div className="flex flex-col gap-2">
@@ -156,7 +156,7 @@ function QrcodeEditorFirstSection({ handler, isLoading }: { handler: () => void,
       </div>
       <div className="flex flex-col gap-4 bg-white border-2 rounded-lg p-4">
         <h2 className="text-4xl">Colors</h2>
-        <div className="flex gap-4">
+        <div className="flex md:flex-row flex-col gap-4">
           <ColorPicker 
             title="Color 1" 
             color={qrCodeState.darkColor} 

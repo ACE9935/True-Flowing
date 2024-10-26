@@ -187,11 +187,9 @@ function QrcodeEditor({ type }: { type?: "basic" | "premium" | string | null }) 
   ));
 
   return (
-    <div className="overflow-hidden grow">
-      <AnimatePresence>
-        {user ? wrappedSections[section - 1] : <QrCodeEditorSkeleton />}
-      </AnimatePresence>
-    </div>
+      <>{user ? <div className="overflow-hidden grow"><AnimatePresence>
+        {wrappedSections[section - 1]}
+      </AnimatePresence></div>: <QrCodeEditorSkeleton />}</>
   );
 }
 

@@ -13,8 +13,8 @@ function QrcodeTab() {
 
     return ( 
         <Provider store={store}>
-        <div className="md:flex-row flex flex-col items-center lg:items-start gap-8 w-full max-w-[1000px]">
-        <div className="py-4 lg:py-12"><QrcodeDisplay/></div>
+        <div className="md:flex-row flex flex-col gap-8 w-full max-w-[1000px]">
+        <div className="py-4 lg:py-12 flex md:flex-none justify-center"><QrcodeDisplay/></div>
         <QrcodeEditor type={type}/>
         </div>
         </Provider>

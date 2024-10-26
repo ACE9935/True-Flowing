@@ -21,7 +21,6 @@ export default function Dashboard() {
         position: "bottom-left",
         render: () => (
           <AppToast variant="SUCCESS" title="Email successfully verified" Icon={Check} />
-
         ),
       });
     }
@@ -75,81 +74,115 @@ export default function Dashboard() {
             link="/dashboard/send-requests"
           />
         </div>
-<div className="lg:flex-row flex-col flex gap-4 w-full">
-        <div className="border-2 rounded-lg flex flex-col gap-4 py-4 w-full">
-        <div className="px-5 flex justify-between items-center">
-            <h2 className="text-lg font-bold">Recent roulette winners</h2>
-            <button onClick={()=>router.push("dashboard/roulette-winners")} className="rounded-full border-black p-3 py-1 border-2 hover:underline">See all</button>
-            </div>
-          <div>
-            <div className="flex justify-between text-slate-500 border-b-2 pb-1 px-5">
-              <div>Name</div>
-              <div>Email</div>
-              <div>Phone</div>
-              <div>Scanned QRCode</div>
-            </div>
-            {!user?.winnerClients.length?<div className="p-4 text-center">No data found</div>:user?.winnerClients
-              ?.sort((a, b) => {
-                const [dayA, monthA, yearA, hourA, minuteA] = a.infos.submitDate.split(/[\/: ]/);
-                const [dayB, monthB, yearB, hourB, minuteB] = b.infos.submitDate.split(/[\/: ]/);
-                const dateA = new Date(`${yearA}-${monthA}-${dayA}T${hourA}:${minuteA}`);
-                const dateB = new Date(`${yearB}-${monthB}-${dayB}T${hourB}:${minuteB}`);
-                return dateB.getTime() - dateA.getTime();
-              })
-              .slice(0, 5) // Limit to 5 items
-              .map((o, index) => (
-                <div key={index} className={index % 2 === 0 ? "bg-amber-300/30" : "bg-amber-300"}>
-                  <div className="flex justify-between text-black border-b-2 py-4 px-5">
-                    <div>{o.infos.name}</div>
-                    <div>{o.infos.email}</div>
-                    <div>{o.infos.phoneNumber}</div>
-                    <div>
-                      {user?.qrCodes?.find((qrcode) => qrcode.id === o.infos.qrcodeId)?.name}
-                    </div>
-                  </div>
-                </div>
-              ))}
-          </div>
-        </div>
 
-        <div className="border-2 rounded-lg flex flex-col gap-4 py-4 w-full">
-          <div className="px-5 flex justify-between items-center">
-            <h2 className="text-lg font-bold">Recent clients</h2>
-            <button className="rounded-full border-black p-3 py-1 border-2 hover:underline" onClick={()=>router.push("/dashboard/clients")}>See all</button>
+        <div className="lg:flex-row flex-col flex gap-4">
+          {/* Recent Roulette Winners Table */}
+          <div className="border-2 rounded-lg flex flex-col">
+            <div className="px-5 flex justify-between items-center py-4">
+              <h2 className="text-lg font-bold">Recent roulette winners</h2>
+              <button
+                onClick={() => router.push("dashboard/roulette-winners")}
+                className="rounded-full border-black p-3 py-1 border-2 hover:underline"
+              >
+                See all
+              </button>
             </div>
-          <div>
-            <div className="flex justify-between text-slate-500 border-b-2 pb-1 px-5">
-              <div>Name</div>
-              <div>Email</div>
-              <div>Phone</div>
-              <div>Scanned QRCode</div>
+            <table className="text-left">
+              <thead className="text-slate-500 border-b-2">
+                <tr>
+                  <th className="px-5 py-2">Name</th>
+                  <th className="px-5 py-2">Email</th>
+                  <th className="px-5 py-2">Phone</th>
+                  <th className="px-5 py-2">Scanned QRCode</th>
+                </tr>
+              </thead>
+              <tbody>
+                {!user?.winnerClients.length ? (
+                  <tr>
+                    <td colSpan={4} className="p-4 text-center">
+                      No data found
+                    </td>
+                  </tr>
+                ) : (
+                  user?.winnerClients
+                    .sort((a, b) => {
+                      const [dayA, monthA, yearA, hourA, minuteA] = a.infos.submitDate.split(/[\/: ]/);
+                      const [dayB, monthB, yearB, hourB, minuteB] = b.infos.submitDate.split(/[\/: ]/);
+                      const dateA = new Date(`${yearA}-${monthA}-${dayA}T${hourA}:${minuteA}`);
+                      const dateB = new Date(`${yearB}-${monthB}-${dayB}T${hourB}:${minuteB}`);
+                      return dateB.getTime() - dateA.getTime();
+                    })
+                    .slice(0, 5)
+                    .map((o, index) => (
+                      <tr key={index} className={index % 2 === 0 ? "bg-amber-300/30" : "bg-amber-300"}>
+                        <td className="px-5 py-4">{o.infos.name}</td>
+                        <td className="px-5 py-4">{o.infos.email}</td>
+                        <td className="px-5 py-4">{o.infos.phoneNumber}</td>
+                        <td className="px-5 py-4">
+                          {user?.qrCodes?.find((qrcode) => qrcode.id === o.infos.qrcodeId)?.name}
+                        </td>
+                      </tr>
+                    ))
+                )}
+              </tbody>
+            </table>
+          </div>
+
+          {/* Recent Clients Table */}
+          <div className="border-2 rounded-lg w-full">
+            <div className="px-5 flex justify-between items-center py-4">
+              <h2 className="text-lg font-bold">Recent clients</h2>
+              <button
+                onClick={() => router.push("/dashboard/clients")}
+                className="rounded-full border-black p-3 py-1 border-2 hover:underline"
+              >
+                See all
+              </button>
             </div>
-            {!user?.clients.length?<div className="p-4 text-center">No data found</div>:user?.clients
-              ?.sort((a, b) => {
-                const [dayA, monthA, yearA, hourA, minuteA] = a.infos.submitDate.split(/[\/: ]/);
-                const [dayB, monthB, yearB, hourB, minuteB] = b.infos.submitDate.split(/[\/: ]/);
-                const dateA = new Date(`${yearA}-${monthA}-${dayA}T${hourA}:${minuteA}`);
-                const dateB = new Date(`${yearB}-${monthB}-${dayB}T${hourB}:${minuteB}`);
-                return dateB.getTime() - dateA.getTime();
-              })
-              .slice(0, 5) // Limit to 5 items
-              .map((o, index) => (
-                <div key={index} className={index % 2 === 0 ? "bg-blue-700/15" : "bg-primary-blue"}>
-                  <div className="flex justify-between text-black border-b-2 py-4 px-5">
-                    <div>{o.infos.name}</div>
-                    <div>{o.infos.email}</div>
-                    <div>{o.infos.phoneNumber}</div>
-                    <div>
-                      {user?.qrCodes?.find((qrcode) => qrcode.id === o.infos.qrcodeId)?.name}
-                    </div>
-                  </div>
-                </div>
-              ))}
+            <table className="w-full text-left">
+              <thead className="text-slate-500 border-b-2">
+                <tr>
+                  <th className="px-5 py-2">Name</th>
+                  <th className="px-5 py-2">Email</th>
+                  <th className="px-5 py-2">Phone</th>
+                  <th className="px-5 py-2">Scanned QRCode</th>
+                </tr>
+              </thead>
+              <tbody>
+                {!user?.clients.length ? (
+                  <tr>
+                    <td colSpan={4} className="p-4 text-center">
+                      No data found
+                    </td>
+                  </tr>
+                ) : (
+                  user?.clients
+                    .sort((a, b) => {
+                      const [dayA, monthA, yearA, hourA, minuteA] = a.infos.submitDate.split(/[\/: ]/);
+                      const [dayB, monthB, yearB, hourB, minuteB] = b.infos.submitDate.split(/[\/: ]/);
+                      const dateA = new Date(`${yearA}-${monthA}-${dayA}T${hourA}:${minuteA}`);
+                      const dateB = new Date(`${yearB}-${monthB}-${dayB}T${hourB}:${minuteB}`);
+                      return dateB.getTime() - dateA.getTime();
+                    })
+                    .slice(0, 5)
+                    .map((o, index) => (
+                      <tr key={index} className={index % 2 === 0 ? "bg-blue-700/15" : "bg-primary-blue"}>
+                        <td className="px-5 py-4">{o.infos.name}</td>
+                        <td className="px-5 py-4">{o.infos.email}</td>
+                        <td className="px-5 py-4">{o.infos.phoneNumber}</td>
+                        <td className="px-5 py-4">
+                          {user?.qrCodes?.find((qrcode) => qrcode.id === o.infos.qrcodeId)?.name}
+                        </td>
+                      </tr>
+                    ))
+                )}
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
     </div>
-    </div>
   );
 }
+
 

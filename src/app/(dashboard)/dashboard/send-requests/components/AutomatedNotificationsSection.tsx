@@ -146,7 +146,7 @@ const AutomatedNotificationTabForEmail = ({ notification, order, userId }: { not
             <div>Email-{order}</div>
           </div>
           <div className="flex gap-4 items-center">
-          <div className="font-semibold text-slate-600 text-xs sm:text-sm">Sent every {getFrequencyInFrench(notification.every)}</div>
+          <div className="font-semibold text-slate-600 text-xs hidden sm:block sm:text-sm">Sent every {getFrequencyInFrench(notification.every)}</div>
             <div className="flex gap-2 text-xs sm:text-sm">
               Status: {notification.activated ?
                 <div className="flex items-center">

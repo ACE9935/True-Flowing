@@ -29,7 +29,7 @@ const links = [
 function SideBar() {
   return (
     <nav className="relative">
-      <div className="bg-primary-color w-[17rem] sticky top-0 min-h-full flex flex-col">
+      <div className="bg-primary-color w-[17rem] sticky top-0 min-h-screen flex flex-col gap-6 md:gap-0 md:justify-between">
         <div className='flex flex-col gap-8 py-8'>
          <div className="text-xs"><Logo variation="white"/></div>
           <div className="flex flex-col pl-2 pr-4 gap-2">

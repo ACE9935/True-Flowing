@@ -11,7 +11,6 @@ const initialState:any={
     text:"",
     margin:4,
     meta:{
-      introductoryText:configurations.client.introductorytext,
       reviewLinks:{google:"",facebook:""},
       spinWheelData:{
         bgColors:['#3e3e3e', '#df3428'],
@@ -70,7 +69,6 @@ const initialState:any={
       setQRCodeMetaLogo:(state,action)=>({...state,meta:{...state.meta,logoImg:action.payload}}),
       setQRCodeMetaReviewLinks:(state,action)=>({...state,meta:{...state.meta,reviewLinks:action.payload}}),
       setQRCodeMetaDesktopImg:(state,action)=>({...state,meta:{...state.meta,desktopImg:action.payload}}),
-      setQRCodeMetaIntroductoryText:(state,action)=>({...state,meta:{...state.meta,introductoryText:action.payload}}),
       resetQRCodeSate:(state,action)=>({...initialState,text:action.payload}),
       setCorrectionLevel:(state,action)=>({...state,correctionLevel:action.payload}),
       setQRCodeName:(state,action)=>({...state,name:action.payload}),
@@ -84,6 +82,6 @@ const initialState:any={
     },
   })
 
-export const { setQRCode,setQRCodeType, setQRCodeRedicectoryLink, setDarkColor,setLightColor,setMargin,setQRCodeText,setCorrectionLevel,setQRCodeName, resetQRCodeSate,setQRCodeMetaLogo,setQRCodeMetaDesktopImg,setQRCodeMetaIntroductoryText, setQRCodeMetaReviewLinks,setBgColorOfQRCodeMetaSpinWheel,setTextColorOfQRCodeMetaSpinWheel, setOptionTextOfQRCodeMetaSpinWheel, addSlotForQRCodeMetaSpinWheel, removeOptionFromQRCodeMetaSpinWheel } = QrcodeSlice.actions
+export const { setQRCode,setQRCodeType, setQRCodeRedicectoryLink, setDarkColor,setLightColor,setMargin,setQRCodeText,setCorrectionLevel,setQRCodeName, resetQRCodeSate,setQRCodeMetaLogo,setQRCodeMetaDesktopImg, setQRCodeMetaReviewLinks,setBgColorOfQRCodeMetaSpinWheel,setTextColorOfQRCodeMetaSpinWheel, setOptionTextOfQRCodeMetaSpinWheel, addSlotForQRCodeMetaSpinWheel, removeOptionFromQRCodeMetaSpinWheel } = QrcodeSlice.actions
 
 export default QrcodeSlice.reducer

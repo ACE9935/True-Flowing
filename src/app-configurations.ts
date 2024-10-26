@@ -9,7 +9,7 @@ export const configurations = {
   userImg: "https://firebasestorage.googleapis.com/v0/b/abt-digital.appspot.com/o/user.png?alt=media&token=9c8c42cf-a46c-4243-9ba3-a522c4d3e9e2",
   client: {
     desktopImg: "https://wallpaper.forfun.com/fetch/21/215e3ddf9d2d722a16e435992d354932.jpeg",
-    introductorytext: "Leave us a review, it will help us grow and better serve customers like you."
+    introductorytext: "To get started, please enter your information below to proceed."
   },
   emailAdress: "noreply@trueflowing.com",
   domain: "trueflowing.com"

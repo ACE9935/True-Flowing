@@ -161,7 +161,6 @@ export interface UserQRCode {
     meta:{
         logoImg:string 
         desktopImg:string 
-        introductoryText:string
         reviewLinks:ReviewLinks
         spinWheelData:{
             bgColors:string[],
@@ -178,6 +177,7 @@ export interface Client {
 
 export interface ClientPageState {
    providerId:string | null
+   providerName:string | null
    client:Client
    qrCode:UserQRCode | null
 }

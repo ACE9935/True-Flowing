@@ -29,7 +29,7 @@ function ClientReviewsForm({handler}:TransitionalClientComponent) {
          <div className="flex flex-col gap-4">
          <img src={globalState.qrCode?.meta.logoImg} className="w-auto h-[6rem] self-center"/>
          <p className="text-lg text-center font-medium text-slate-600 relative pb-6">
-          Thank you for leaving a review by following one of the links provided above.</p>
+          Please leave a review by following one of the links provided below to continue.</p>
          </div>
        
        <div className="flex flex-col gap-4">

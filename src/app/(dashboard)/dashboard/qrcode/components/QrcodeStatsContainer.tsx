@@ -42,6 +42,194 @@ function ScansInfoCard({title,data,color}:{title:string,data:number,color:string
    );
 }
 
+export const DeleteQRCodeModal = ({isOpen,onClose,qrCodeId}:{isOpen:boolean,onClose:()=>void,qrCodeId:string})=>{
+
+    const router=useRouter()
+    const toast = useToast()
+    const [loading,setLoading]=useState(false)
+    const {user,updateUser}=useUser()
+
+    async function deleteQRCode() {
+        try {
+            setLoading(true)
+            // Query the collection for the document with the specified id field value
+            const collectionRef = collection(db, 'users'); 
+            const q = query(collectionRef, where("id", "==", user?.id));
+            const querySnapshot = await getDocs(q);
+      
+            // Check if any documents match the query
+            if (!querySnapshot.empty) {
+                // Iterate over each matching document
+                querySnapshot.forEach(async (doc) => {
+                    // Document found, get the reference
+                    const docRef = firestoreDoc(collection(db, "users"), doc.id);
+      
+                    // Get the current document data
+                    const docData = doc.data();
+                    const fieldArray = docData["qrCodes"] || [];
+      
+                    // Find the QR code to be removed
+                    const qrCodeToRemove = fieldArray.find((qrCode:UserQRCode) => qrCode.id === qrCodeId);
+      
+                    if (qrCodeToRemove) {
+                        // Remove the specific QR code from the array field
+                        await updateDoc(docRef, {
+                            ["qrCodes"]: arrayRemove(qrCodeToRemove)
+                        });
+                        await updateUser()
+                        console.log("QR code successfully removed from the document field!");
+                    } else {
+                        console.log("No matching QR code found in the field.");
+                    }
+                });
+            } else {
+                console.log("No matching documents found.");
+            }
+        } catch (error) {
+            console.error("Error updating document field:", error);
+        }
+        finally{
+          setLoading(false)
+          router.push("/dashboard/qrcodes")
+          toast({
+            position: 'bottom-left',
+            render: () => (
+              <AppToast variant="SUCCESS" title="QR code deleted" Icon={Check}/>
+            ),
+          })
+    
+        }
+      }
+
+return (<Modal open={isOpen} onClose={() => {
+    onClose();
+}} disableAutoFocus>
+    <div
+        style={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+        }}
+        className="bg-white rounded-md p-6 flex gap-7 flex-col">
+        <p className="text-xl">
+            Do you really want to delete your QR code?</p>
+
+        <div className="flex gap-3">
+            <button className="border-2 border-primary-color font-bold text-black rounded-full p-3 flex gap-2 items-center" onClick={onClose}>Cancel</button>
+            <button onClick={() => deleteQRCode()} className="bg-primary-color font-bold text-white rounded-full p-3 flex gap-2 items-center">{loading && <AppSpinner variant="LIGHT" size={26} />}Delete</button>
+        </div>
+    </div>
+</Modal>)}
+
+export const EditQRCodeModal = ({isOpen,onClose,qrCode}:{isOpen:boolean,onClose:()=>void,qrCode:UserQRCode})=>{
+
+    const router=useRouter()
+    const toast = useToast()
+    const [loading,setLoading]=useState(false)
+    const {user,updateUser}=useUser()
+    const [newLink,setLink]=useState("")
+
+    useEffect(()=>{
+     if(qrCode) setLink(qrCode?.redirectoryLink!)
+    },[user])
+
+    async function updateQRCodeRedirect() {
+  
+        try {
+            setLoading(true);
+    
+            // Query the collection for the document with the specified id field value
+            const collectionRef = collection(db, 'users');
+            const q = query(collectionRef, where("id", "==", user?.id));
+            const querySnapshot = await getDocs(q);
+    
+            // Check if any documents match the query
+            if (!querySnapshot.empty) {
+                // Iterate over each matching document
+                querySnapshot.forEach(async (doc) => {
+                    // Document found, get the reference
+                    const docRef = firestoreDoc(collection(db, "users"), doc.id);
+    
+                    // Get the current document data
+                    const docData = doc.data();
+                    const fieldArray = docData["qrCodes"] || [];
+    
+                    // Find the QR code to be updated
+                    const qrCodeToUpdate = fieldArray.find((qrCode: UserQRCode) => qrCode.id === qrCode.id);
+    
+                    if (qrCodeToUpdate) {
+                        // Update the redirectUrl field of the specific QR code
+                        await updateDoc(docRef, {
+                            ["qrCodes"]: fieldArray.map((qrCode: UserQRCode) => {
+                                if (qrCode.id === qrCode.id) {
+                                    return { ...qrCode, redirectoryLink: newLink };
+                                }
+                                return qrCode;
+                            })
+                        });
+                        await updateUser();
+                        onClose()
+                        console.log("QR code redirectUrl successfully updated in the document field!");
+                    } else {
+                        console.log("No matching QR code found in the field.");
+                    }
+                });
+            } else {
+                console.log("No matching documents found.");
+            }
+             // Uncomment if updateUser is a defined function
+            toast({
+                position: 'bottom-left',
+                render: () => (
+                    <AppToast variant="SUCCESS" title="QR code updated" Icon={Check} />
+                ),
+            });
+    
+        } catch (error) {
+            console.error("Error updating document field:", error);
+        } finally {
+            setLoading(false);
+        }
+    }
+
+return (<Modal open={isOpen} onClose={() => {
+    setLink(qrCode.redirectoryLink!);
+    onClose();
+}} disableAutoFocus>
+    <div
+        style={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+        }}
+        className="bg-white rounded-md p-6 flex gap-7 flex-col">
+        <p className="text-xl">
+            Edit the redirect link of your QR code</p>
+        <div className="flex flex-col gap-2 w-full max-w-[22rem]">
+            <label htmlFor="url-input" className="font-bold">URL Link</label>
+            <ClientInput
+                error={!newLink?.length}
+                value={newLink}
+                style={{ width: "100% !important" }}
+                onChange={(e) => {
+                    setLink(e.target.value);
+                }}
+                id="url-input"
+                label=""
+            />
+        </div>
+        <div className="flex gap-3">
+            <button className="border-2 border-primary-color font-bold text-black rounded-full p-3 flex gap-2 items-center" onClick={() => {
+                setLink(qrCode.redirectoryLink!);
+                onClose();
+            }}>Cancel</button>
+            <button disabled={!newLink} onClick={() => updateQRCodeRedirect()} className="bg-primary-color font-bold text-white rounded-full p-3 px-6 flex gap-2 items-center">{loading && <AppSpinner variant="LIGHT" size={26} />}Edit</button>
+        </div>
+    </div>
+</Modal>)}
+
 function QrcodeStatsContainer({ qrCodeId }: { qrCodeId: string }) {
 
     const {user,updateUser}=useUser()
@@ -55,124 +243,6 @@ function QrcodeStatsContainer({ qrCodeId }: { qrCodeId: string }) {
     const [loading,setLoading]=useState(false)
     const router=useRouter()
     const toast = useToast()
-    const [newLink,setLink]=useState("")
-
-    useEffect(()=>{
-     if(qrcode) setLink(qrcode?.redirectoryLink!)
-    },[user])
-
- 
-    async function updateQRCodeRedirect(userId: string, qrCodeId: string, newRedirectUrl: string) {
-  
-      try {
-          setLoading(true);
-  
-          // Query the collection for the document with the specified id field value
-          const collectionRef = collection(db, 'users');
-          const q = query(collectionRef, where("id", "==", userId));
-          const querySnapshot = await getDocs(q);
-  
-          // Check if any documents match the query
-          if (!querySnapshot.empty) {
-              // Iterate over each matching document
-              querySnapshot.forEach(async (doc) => {
-                  // Document found, get the reference
-                  const docRef = firestoreDoc(collection(db, "users"), doc.id);
-  
-                  // Get the current document data
-                  const docData = doc.data();
-                  const fieldArray = docData["qrCodes"] || [];
-  
-                  // Find the QR code to be updated
-                  const qrCodeToUpdate = fieldArray.find((qrCode: UserQRCode) => qrCode.id === qrCodeId);
-  
-                  if (qrCodeToUpdate) {
-                      // Update the redirectUrl field of the specific QR code
-                      await updateDoc(docRef, {
-                          ["qrCodes"]: fieldArray.map((qrCode: UserQRCode) => {
-                              if (qrCode.id === qrCodeId) {
-                                  return { ...qrCode, redirectoryLink: newRedirectUrl };
-                              }
-                              return qrCode;
-                          })
-                      });
-                      await updateUser();
-                      onCloseY()
-                      console.log("QR code redirectUrl successfully updated in the document field!");
-                  } else {
-                      console.log("No matching QR code found in the field.");
-                  }
-              });
-          } else {
-              console.log("No matching documents found.");
-          }
-           // Uncomment if updateUser is a defined function
-          toast({
-              position: 'bottom-left',
-              render: () => (
-                  <AppToast variant="SUCCESS" title="QR code updated" Icon={Check} />
-              ),
-          });
-  
-      } catch (error) {
-          console.error("Error updating document field:", error);
-      } finally {
-          setLoading(false);
-      }
-  }
-
-    async function deleteQRCode(userId:string, qrCodeId:string) {
-      try {
-          setLoading(true)
-          // Query the collection for the document with the specified id field value
-          const collectionRef = collection(db, 'users'); 
-          const q = query(collectionRef, where("id", "==", userId));
-          const querySnapshot = await getDocs(q);
-    
-          // Check if any documents match the query
-          if (!querySnapshot.empty) {
-              // Iterate over each matching document
-              querySnapshot.forEach(async (doc) => {
-                  // Document found, get the reference
-                  const docRef = firestoreDoc(collection(db, "users"), doc.id);
-    
-                  // Get the current document data
-                  const docData = doc.data();
-                  const fieldArray = docData["qrCodes"] || [];
-    
-                  // Find the QR code to be removed
-                  const qrCodeToRemove = fieldArray.find((qrCode:UserQRCode) => qrCode.id === qrCodeId);
-    
-                  if (qrCodeToRemove) {
-                      // Remove the specific QR code from the array field
-                      await updateDoc(docRef, {
-                          ["qrCodes"]: arrayRemove(qrCodeToRemove)
-                      });
-                      await updateUser()
-                      console.log("QR code successfully removed from the document field!");
-                  } else {
-                      console.log("No matching QR code found in the field.");
-                  }
-              });
-          } else {
-              console.log("No matching documents found.");
-          }
-      } catch (error) {
-          console.error("Error updating document field:", error);
-      }
-      finally{
-        setLoading(false)
-        router.push("/dashboard/qrcodes")
-        toast({
-          position: 'bottom-left',
-          render: () => (
-            <AppToast variant="SUCCESS" title="QR code deleted" Icon={Check}/>
-          ),
-        })
-
-      }
-    }
-    
 
     const chartsY: { [key: string]: JSX.Element | null } = qrcode ? {
       weekly: <WeeklyChart title="Evolution of Winners in Roulette" color="#ea580c" secondaryColor="orange" label="winner" qrCode={qrcode} xAxis={getPastWeekDays} yAxis={getWeekWinnersData} chartType={chartTypeY} setChartType={setChartTypeY}/>,
@@ -190,62 +260,10 @@ function QrcodeStatsContainer({ qrCodeId }: { qrCodeId: string }) {
     <>
         {user ? 
         <div className="p-3">
-            <Modal open={isOpen} onClose={() => {
-                onClose();
-            }} disableAutoFocus>
-                <div
-                    style={{
-                        position: 'absolute',
-                        top: '50%',
-                        left: '50%',
-                        transform: 'translate(-50%, -50%)',
-                    }}
-                    className="bg-white rounded-md p-6 flex gap-7 flex-col">
-                    <p className="text-xl">
-                        Do you really want to delete your QR code?</p>
 
-                    <div className="flex gap-3">
-                        <button className="border-2 border-primary-color font-bold text-black rounded-full p-3 flex gap-2 items-center" onClick={onClose}>Cancel</button>
-                        <button onClick={() => deleteQRCode(auth.currentUser?.uid!, qrcode.id)} className="bg-primary-color font-bold text-white rounded-full p-3 flex gap-2 items-center">{loading && <AppSpinner variant="LIGHT" size={26} />}Delete</button>
-                    </div>
-                </div>
-            </Modal>
-            <Modal open={isOpenY} onClose={() => {
-                setLink(qrcode.redirectoryLink!);
-                onCloseY();
-            }} disableAutoFocus>
-                <div
-                    style={{
-                        position: 'absolute',
-                        top: '50%',
-                        left: '50%',
-                        transform: 'translate(-50%, -50%)',
-                    }}
-                    className="bg-white rounded-md p-6 flex gap-7 flex-col">
-                    <p className="text-xl">
-                        Edit the redirect link of your QR code</p>
-                    <div className="flex flex-col gap-2 w-full max-w-[22rem]">
-                        <label htmlFor="url-input" className="font-bold">URL Link</label>
-                        <ClientInput
-                            error={!newLink?.length}
-                            value={newLink}
-                            style={{ width: "100% !important" }}
-                            onChange={(e) => {
-                                setLink(e.target.value);
-                            }}
-                            id="url-input"
-                            label=""
-                        />
-                    </div>
-                    <div className="flex gap-3">
-                        <button className="border-2 border-primary-color font-bold text-black rounded-full p-3 flex gap-2 items-center" onClick={() => {
-                            setLink(qrcode.redirectoryLink!);
-                            onCloseY();
-                        }}>Cancel</button>
-                        <button disabled={!newLink} onClick={() => updateQRCodeRedirect(user.id, qrCodeId, newLink!)} className="bg-primary-color font-bold text-white rounded-full p-3 px-6 flex gap-2 items-center">{loading && <AppSpinner variant="LIGHT" size={26} />}Edit</button>
-                    </div>
-                </div>
-            </Modal>
+            <DeleteQRCodeModal isOpen={isOpen} onClose={onClose} qrCodeId={qrCodeId}/>
+            <EditQRCodeModal isOpen={isOpenY} onClose={onCloseY} qrCode={qrcode}/>
+            
             <div className="p-3 pb-6">
                 <h1 className="text-3xl font-bold pb-2">QR Code Statistics</h1>
                 <p className="text-slate-600 text-lg">Discover key statistics of your QR code here</p>

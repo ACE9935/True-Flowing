@@ -4,7 +4,7 @@ import ClientForm from "./ClientForm";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { store } from "../client-state/store";
-import { setClientId, setClientPhoneNumber, setProviderId, setQRCode, setQRCodeId, setSavedClient } from "../client-state/client-state";
+import { setClientId, setClientPhoneNumber, setProviderId, setProviderName, setQRCode, setQRCodeId, setSavedClient } from "../client-state/client-state";
 import { Provider } from "react-redux";
 import ClientReviewsForm from "./ClientReviewsForm";
 import axios from "axios";
@@ -61,13 +61,14 @@ export async function incrementQrCodesScans(userId: string, qrCodeId: string) {
 }
 
 
-function ClientPageSections({qrCode,clientId}:{qrCode:UserQRCode,clientId:string}) {
+function ClientPageSections({qrCode,clientId,name}:{qrCode:UserQRCode,clientId:string,name:string}) {
 
     const [section,setSection]=useState(1)
     const [loading, setLoading]=useState(true)
 
     useEffect(() => {
        store.dispatch(setProviderId(clientId));
+       store.dispatch(setProviderName(name));
        store.dispatch(setQRCodeId(qrCode.id))
        store.dispatch(setClientId(generateRandomId(16)))
        store.dispatch(setQRCode(qrCode));
@@ -122,6 +123,7 @@ function ClientPageSections({qrCode,clientId}:{qrCode:UserQRCode,clientId:string
     return ( 
       <>{loading?
       <div className="flex flex-col items-center gap-4 fade-animation">
+
       <img src={qrCode.meta.logoImg} width={100}/>
       <img src={qrCode.url} width={260}/>
       </div>

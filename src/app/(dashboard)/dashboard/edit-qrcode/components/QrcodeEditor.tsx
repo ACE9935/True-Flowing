@@ -118,7 +118,7 @@ return (
  <div className="flex flex-col gap-2 pt-12">
  <div className="bg-primary-blue text-white p-3 rounded-t-xl font-bold text-center">{qrCodeState.name}</div>
   <img src={qrCodeState.url} className="w-full max-w-[18rem]"/>
-  <button onClick={()=>router.push(`/dashboard/qrcode/${qrCodeId}`)} className="border-2 border-primary-color bg-slate-400/30 hover:bg-slate-400/70 transition-all font-bold text-black justify-center rounded-lg p-3 flex gap-2 items-center">Cancel edit</button>
+  <button onClick={()=>router.back()} className="border-2 border-primary-color bg-slate-400/30 hover:bg-slate-400/70 transition-all font-bold text-black justify-center rounded-lg p-3 flex gap-2 items-center">Cancel edit</button>
    </div>
  <div className="overflow-hidden">
     <AnimatePresence>

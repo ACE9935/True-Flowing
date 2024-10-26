@@ -137,6 +137,7 @@ function ClientForm({handler}:TransitionalClientComponent) {
   const dispatch = useAppDispatch();
   const [formError,setFormError]=useState('')
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const [isOpenInfo,setIsOpenInfo]=useState(true)
   const [errors,setErrors]=useState({name:{status:false,msg:""},email:{status:false,msg:""},phoneNumber:{status:false,msg:""}})
 
   const handleSubmit = async (e: FormEvent) => {
@@ -197,6 +198,35 @@ function ClientForm({handler}:TransitionalClientComponent) {
 
   return (
       <div className="bg-secondary-color p-9 rounded-lg w-full max-w-[34rem] flex flex-col items-center">
+        <Modal open={isOpenInfo} onClose={()=>setIsOpenInfo(false)} disableAutoFocus>
+          <>
+           <Box sx={{
+           position: 'absolute',
+           top: '50%',
+           left: '50%',
+           transform: 'translate(-50%, -50%)',
+           }}>
+            <motion.div
+            initial={{scale:0}}
+            animate={{scale:1}}
+            className='p-6 sm:px-14 flex flex-col items-center gap-6 rounded-md w-[90vw] sm:w-[30rem] bg-slate-100'
+            transition={{type:"spring"}}
+            >
+            <h1 className='text-center text-2xl'>Welcome to {globalState.providerName}'s Prize Roulette!</h1>
+            <div className='text-center'>
+            We're excited to welcome you to the {globalState.providerName} page, where you can play our roulette game to win a free prize! To participate, please follow these three steps:
+            <br /><br />
+            <strong>1.</strong> Enter your information (name, phone number, email).<br />
+            <strong>2.</strong> Submit a review by following one of the links provided.<br />
+            <strong>3.</strong> After submitting your review, return here to play the roulette game and try your luck!
+            <br /><br />
+            <p className="text-sm text-slate-600 underline">Please note, you can play the roulette game only once every 2 hours.</p>
+            </div>
+            <button onClick={()=>setIsOpenInfo(false)} className="bg-primary-color rounded-full text-white px-6 p-4 font-bold">Good luck!</button>
+            </motion.div>
+           </Box>
+           </>
+          </Modal>
         <Modal open={isOpen} onClose={onClose} disableAutoFocus>
           <>
            <Box sx={{
@@ -208,7 +238,7 @@ function ClientForm({handler}:TransitionalClientComponent) {
             <motion.div
             initial={{scale:0}}
             animate={{scale:1}}
-            className='p-6 sm:px-14 flex flex-col items-center gap-6 rounded-md w-[30rem] bg-slate-100'
+            className='p-6 sm:px-14 flex flex-col items-center gap-6 rounded-md md:w-[30rem] bg-slate-100'
             transition={{type:"spring"}}
             >
             <h1 className='text-center text-2xl'>Alert</h1>
@@ -222,7 +252,7 @@ function ClientForm({handler}:TransitionalClientComponent) {
           </Modal>
           <div className="flex flex-col gap-4">
           <img src={globalState.qrCode?.meta.logoImg} className="w-auto h-[6rem] self-center"/>
-          <p className="text-lg text-center font-medium text-slate-600 relative pb-6">{globalState.qrCode?.meta.introductoryText}</p>
+          <p className="text-lg text-center font-medium text-slate-600 relative pb-6">To get started, please enter your information below to proceed.</p>
           </div>
        <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-[90%]">
        {formError?<Alert severity="error">{formError}</Alert>:<></>}

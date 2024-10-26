@@ -4,6 +4,7 @@ import generateRandomId from '@/utils/generateRandomId'
 
 const initialState:ClientPageState={
     providerId:null,
+    providerName:null,
     client:{
         infos:{
             id:"",
@@ -23,6 +24,7 @@ const initialState:ClientPageState={
     reducers: {
         setSavedClient:(state,action)=>({...state,client:{infos:{...action.payload}}}),
         setProviderId:(state,action)=>({...state,providerId:action.payload}),
+        setProviderName:(state,action)=>({...state,providerName:action.payload}),
         setClientId:(state,action)=>{state.client.infos.id=action.payload},
         setQRCode:(state,action)=>({...state,qrCode:action.payload}),
         setClientName:(state,action)=>{state.client.infos.name=action.payload},
@@ -33,6 +35,6 @@ const initialState:ClientPageState={
     },
   })
 
-export const { setProviderId,setQRCode,setSavedClient, setClientId, setClientEmail,setClientPhoneNumber,setClientName,setQRCodeId,setSubmitDate } = ClientPageSlice.actions
+export const { setProviderId,setQRCode,setSavedClient,setProviderName, setClientId, setClientEmail,setClientPhoneNumber,setClientName,setQRCodeId,setSubmitDate } = ClientPageSlice.actions
 
 export default ClientPageSlice.reducer

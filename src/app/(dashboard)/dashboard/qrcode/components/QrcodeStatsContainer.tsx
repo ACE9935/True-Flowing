@@ -282,10 +282,10 @@ function QrcodeStatsContainer({ qrCodeId }: { qrCodeId: string }) {
                 </div>
                 <div>
                     {charts[chartType]}
-                    <div className="grid grid-cols-3 gap-3 py-3">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 py-3">
                         <div className="bg-white border-2 rounded-md p-4 flex flex-col gap-3">
                             <div className="font-bold">Total Scans</div>
-                            <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-3">
                                 <div className="font-bold text-3xl border-l-[0.3rem] border-primary-blue pl-2">{qrcode.scans}</div>
                                 {scansProgress != 0 ? <div className="flex items-center">{scansProgress > 0 ? <ArrowUpward className="text-green-600" /> : <ArrowDownward className="text-red-500" />}<div className="text-2xl text-slate-600">{scansProgress > 0 ? "+" : ""}{scansProgress}</div></div> : <></>}
                             </div>
@@ -296,10 +296,10 @@ function QrcodeStatsContainer({ qrCodeId }: { qrCodeId: string }) {
                     </div>
                     {qrcode.type == "Premium" && <div>
                         {chartsY[chartTypeY]}
-                        <div className="grid grid-cols-3 gap-3 py-3">
+                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 py-3">
                             <div className="bg-white border-2 rounded-md p-4 flex flex-col gap-3">
                                 <div className="font-bold">Total Winners</div>
-                                <div className="flex gap-6 items-center justify-between">
+                                <div className="flex items-center gap-3">
                                     <div className="font-bold text-3xl border-l-[0.3rem] border-amber-500 pl-2">{qrcode.winners}</div>
                                     {winnersProgress != 0 ? <div className="flex items-center">{winnersProgress > 0 ? <ArrowUpward className="text-green-600" /> : <ArrowDownward className="text-red-500" />}<div className="text-2xl text-slate-600">{winnersProgress > 0 ? "+" : ""}{winnersProgress}</div></div> : <></>}
                                 </div>

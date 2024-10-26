@@ -72,7 +72,7 @@ function ImageUpload({
         className="rounded-full flex items-center justify-center hover:bg-primary-color hover:text-white transition-all bg-slate-200 p-3 cursor-pointer"
       >
         <Edit fontSize="small" />
-        <span className="ml-1 text-sm">Edit</span>
+        
       </label>
     </div>
   );

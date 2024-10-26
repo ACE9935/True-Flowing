@@ -26,7 +26,6 @@ export default function Dashboard() {
     }
   }, [searchParams, toast]);
 
-  // Corrected Tab function as a component
   const Tab = ({
     title,
     content,
@@ -75,9 +74,9 @@ export default function Dashboard() {
           />
         </div>
 
-        <div className="lg:flex-row flex-col flex gap-4">
+        <div className="grid lg:grid-cols-2 grid-cols-1 gap-4">
           {/* Recent Roulette Winners Table */}
-          <div className="border-2 rounded-lg flex flex-col">
+          <div className="border-2 rounded-lg w-full overflow-x-auto">
             <div className="px-5 flex justify-between items-center py-4">
               <h2 className="text-lg font-bold">Recent roulette winners</h2>
               <button
@@ -87,7 +86,7 @@ export default function Dashboard() {
                 See all
               </button>
             </div>
-            <table className="text-left">
+            <table className="w-full table-auto text-left">
               <thead className="text-slate-500 border-b-2">
                 <tr>
                   <th className="px-5 py-2">Name</th>
@@ -129,7 +128,7 @@ export default function Dashboard() {
           </div>
 
           {/* Recent Clients Table */}
-          <div className="border-2 rounded-lg w-full">
+          <div className="border-2 rounded-lg w-full overflow-x-auto">
             <div className="px-5 flex justify-between items-center py-4">
               <h2 className="text-lg font-bold">Recent clients</h2>
               <button
@@ -139,7 +138,7 @@ export default function Dashboard() {
                 See all
               </button>
             </div>
-            <table className="w-full text-left">
+            <table className="w-full table-auto text-left">
               <thead className="text-slate-500 border-b-2">
                 <tr>
                   <th className="px-5 py-2">Name</th>

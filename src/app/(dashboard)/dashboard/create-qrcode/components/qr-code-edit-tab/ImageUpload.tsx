@@ -52,9 +52,9 @@ function ImageUpload({setUrl,url,setImage}:{setUrl:(url:string)=>void,url:string
   return (
     <div>
       <input onChange={handleChange} type="file" id="logoInput" className='opacity-0 w-0 h-0'/>
-     <div className="rounded-full hover:bg-primary-color hover:text-white transition-all bg-slate-200 p-[0.6rem] py-3 scale-[0.8] cursor-pointer">
-     <Edit/>
-     </div>
+     <label htmlFor="logoInput" className="rounded-full hover:bg-primary-color hover:text-white transition-all bg-slate-200 p-[0.6rem] py-3 scale-[0.8] cursor-pointer">
+     Edit
+     </label>
 
     </div>
   );

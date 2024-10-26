@@ -85,7 +85,7 @@ function UserTab() {
                         left: '50%',
                         transform: 'translate(-50%, -50%)',
                     }}
-                    className="bg-white rounded-md p-6 flex gap-7 flex-col">
+                    className="bg-white rounded-md p-6 flex gap-7 flex-col sm:w-auto w-[90%]">
                     <p className="text-xl">
                         Do you really want to delete your account?</p>
 

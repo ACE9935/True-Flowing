@@ -49,7 +49,7 @@ function LoginForm({ resetPassword }: { resetPassword: string | null }) {
     return (
         <div className="bg-secondary-color p-9 rounded-lg w-full max-w-[28rem]">
             {isRegistering && <AppSpinner size={50} variant="LIGHT" className="fixed top-0 right-0 m-4" />}
-            <div className="text-lg pb-11"><Logo variation="light"/></div>
+            <div className="text-md sm:text-lg pb-11"><Logo variation="light"/></div>
             <form onSubmit={onSubmit} className="flex flex-col gap-4">
                 {response.status === "ERROR" && <Alert severity="error">{response.errorMsg}</Alert>}
                 <BasicInput

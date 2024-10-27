@@ -65,7 +65,7 @@ function SignUpForm() {
   return (
     <>
       <Modal open={isOpen} onClose={onClose} disableAutoFocus>
-        <Box sx={ModalStyles} className='!p-6 sm:px-14 !flex !flex-col !items-center !gap-8 !pb-14 !rounded-md'>
+        <Box sx={ModalStyles} className='!p-6 sm:w-[30rem] w-[90%] sm:px-14 !flex !flex-col !items-center !gap-8 !pb-14 !rounded-md'>
           <div className='flex self-end relative'><IconButton onClick={onClose}><CloseOutlined sx={{ fontSize: 30 }} /></IconButton></div>
           <h1 className='text-center text-2xl'>Check your inbox.</h1>
           <p className='text-center'>
@@ -76,7 +76,7 @@ function SignUpForm() {
       </Modal>
       <div className="bg-secondary-color p-9 rounded-lg w-full max-w-[30rem]">
         {isRegistering && <AppSpinner size={50} variant="LIGHT" className="fixed top-0 right-0 m-4" />}
-        <div className="text-lg pb-11"><Logo variation="light"/></div>
+        <div className="text-md sm:text-lg pb-11"><Logo variation="light"/></div>
         <form onSubmit={onSubmit} className="flex flex-col gap-4">
           {response.status === "ERROR" ? <Alert severity="error">An error occurred</Alert> : response.status === "OK" ?
             OKStatusResponsesComponents[response.method!] : <></>}

@@ -23,7 +23,7 @@ export default function Home() {
     <main className='w-full min-h-screen'>
       <nav className="pt-4 pb-1 px-6 flex justify-between items-center">
         <div className="text-xs sm:text-md"><Logo variation="light"/></div>
-        <button className="bg-gradient-to-r from-primary-blue-light hover:bg-black/20 bg-blend-overlay to-primary-blue-dark transition-all rounded-lg text-white py-3 font-semibold px-6">Sign in</button>
+        <a href="/login" className="bg-gradient-to-r from-primary-blue-light hover:bg-black/20 bg-blend-overlay to-primary-blue-dark transition-all rounded-lg text-white py-3 font-semibold px-6">Sign in</a>
       </nav>
       <section className="sm:p-6 pt-6">
         <div style={{backgroundImage:"url('/hero.jpg')"}} className="sm:rounded-xl flex flex-col gap-8 items-center py-32 bg-cover bg-center bg-primary-blue-dark bg-blend-multiply">
@@ -32,7 +32,7 @@ export default function Home() {
            <div className="text-primary-blue-light">To Drive Enterprise Successs</div>
           </h1>
           <div className="font-semibold text-primary-blue-extra-light text-lg">For all kind of businesses</div>
-          <button className="bg-white hover:bg-primary-blue-extra-light transition-all rounded-lg text-primary-blue-dark py-4 font-semibold px-7">Get started!</button>
+          <a href="/dashboard" className="bg-white hover:bg-primary-blue-extra-light transition-all rounded-lg text-primary-blue-dark py-4 font-semibold px-7">Get started!</a>
         </div>
       </section>
       <section className="bg-slate-300/30 px-6 py-12 flex flex-col gap-14">

@@ -254,10 +254,10 @@ function AutomatedNotificationsSection() {
       ) : (
         <div className="flex flex-col gap-4">
           <div>
-            <h2 className="pb-4 font-bold text-xl">Automated Notifications</h2>
+            <h2 className="pb-4 font-bold text-xl">Notification campaigns</h2>
             <div className="flex flex-col gap-3">
               {!user?.automatedNotifications.length ? (
-                <div className="text-center">No notifications found</div>
+                <div className="text-center">No campaigns found</div>
               ) : (
                 user?.automatedNotifications
                   ?.filter((o) => o.type === "Email")

@@ -67,7 +67,7 @@ export default function Dashboard() {
             link="/dashboard/qrcodes"
           />
           <Tab
-            title="AUTOMATED ALERTS"
+            title="NOTIFICATION CAMPAINGS"
             content={user?.automatedNotifications?.length || 0}
             Icon={NotificationAdd}
             link="/dashboard/send-requests"

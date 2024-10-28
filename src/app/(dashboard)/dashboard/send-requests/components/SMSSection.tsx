@@ -37,9 +37,9 @@ function SMSSection() {
                   onChange={() => setAutomate(prev => !prev)} 
                   color="default" 
                />
-               <label htmlFor="automate-checkbox" className="font-bold text-md pl-2">Enable Automation</label>
+               <label htmlFor="automate-checkbox" className="font-bold text-md pl-2">Notification campaign</label>
             </div>
-            <Alert severity="info">Automated SMS are currently disabled</Alert>
+            <Alert severity="info">SMS campaigns are currently disabled</Alert>
             {automate && (
                <div className="p-3 border-l-2 mt-1">
                   <StyledSelect

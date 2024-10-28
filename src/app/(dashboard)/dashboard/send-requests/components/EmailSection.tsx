@@ -25,7 +25,7 @@ function EmailSection() {
             <button className="rounded-md font-bold text-white bg-black p-3" onClick={() => router.push("/dashboard/clients")}>View Your Registered Clients</button>
             <div className="mt-3 flex items-center">
                <Checkbox disableRipple className="!px-0" id="automate-checkbox" checked={automate} onChange={() => setAutomate(prev => !prev)} color="default" />
-               <label htmlFor="automate-checkbox" className="font-bold text-md pl-2">Enable Automation</label>
+               <label htmlFor="automate-checkbox" className="font-bold text-md pl-2">Notification campaign</label>
             </div>
             {automate && (
                <div>
@@ -46,7 +46,7 @@ function EmailSection() {
                </div>
                </div>
             )}
-            <p className=" text-slate-600 flex gap-1 mt-1 font-semibold"><Info sx={{color:"#97a2ff"}}/>Automated notifications are messages sent to users at scheduled intervals to inform them about important events or updates without manual intervention.</p>
+            <p className=" text-slate-600 flex gap-1 mt-1 font-semibold"><Info sx={{color:"#97a2ff"}}/>Notification campaigns are targeted messages sent to users at scheduled intervals to inform them about important events or updates without manual intervention.</p>
             <EmailCustomizerForm automateType={automateType} init={init} automate={automate} automateValue={automateValue} />
          </div>
       </div>

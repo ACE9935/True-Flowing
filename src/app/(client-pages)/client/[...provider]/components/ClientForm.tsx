@@ -219,12 +219,12 @@ function ClientForm({handler}:TransitionalClientComponent) {
             <motion.div
             initial={{scale:0}}
             animate={{scale:1}}
-            className='p-6 sm:px-14 flex flex-col items-center gap-6 rounded-md w-[90vw] sm:w-[30rem] bg-slate-100'
+            className='p-8 sm:px-14 flex flex-col items-center gap-6 rounded-md w-[90vw] sm:w-[30rem] bg-slate-100'
             transition={{type:"spring"}}
             >
-            <h1 className='text-center text-2xl'>Welcome to {globalState.providerName}'s Prize Roulette!</h1>
+            <h1 className='text-center text-2xl'>Welcome to {globalState.providerName}'s<br/> <span className="text-amber-400 font-bold">Prize Roulette!</span></h1>
             <div className='text-center'>
-            We're excited to welcome you to the {globalState.providerName} page, where you can play our roulette game to win a free prize! To participate, please follow these three steps:
+            To participate, please follow these three steps:
             <br /><br />
             <strong>1.</strong> Enter your information (name, phone number, email).<br />
             <strong>2.</strong> Submit a review by following one of the links provided.<br />

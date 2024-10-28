@@ -18,7 +18,7 @@ function DashBoardLayout({children}:{children:React.ReactNode}) {
             {matches?<Drawer open={open} onClose={toggleDrawer(false)}>
             <SideBar/>
             </Drawer>:<SideBar/>}
-            <main className="grow">
+            <main className="grow max-w-[1100px]">
                 {matches&&<nav className="bg-primary-blue px-4 py-3 flex justify-between items-center">
                     <a href="/"><img width={30} src="/logo.png"/></a>
                     <IconButton onClick={toggleDrawer(true)}><Menu sx={{color:"white"}}/></IconButton>

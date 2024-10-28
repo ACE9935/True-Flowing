@@ -14,13 +14,13 @@ import { signOut } from "firebase/auth";
 import { ChangeEvent, useRef, useState } from "react";
 import { getAuth, deleteUser as deleteAuthUser } from "firebase/auth"; 
 import { collection, query, where, getDocs, doc as firestoreDoc, deleteDoc } from "firebase/firestore";
-import { arrayRemove, updateDoc } from "firebase/firestore"; // Ensure you have the necessary Firestore functions
 
 function UserTabSkeleton() {
     return ( 
         <div className="flex flex-col gap-3 items-center pb-4 w-full">
-        <Skeleton variant="rounded" height={30} width={100} sx={{background:"rgba(255,255,255,0.8)"}}/>
-        <Skeleton variant="rounded" height={40} width={180} sx={{background:"rgba(255,255,255,0.8)"}}/>
+        <div className="flex gap-4"><Skeleton variant="rounded" height={40} width={40} sx={{borderRadius:"50rem",background:"rgba(255,255,255,0.8)"}}/><Skeleton variant="rounded" height={30} width={100} sx={{background:"rgba(255,255,255,0.8)"}}/></div>
+        <Skeleton variant="rounded" height={40} width={140} sx={{background:"rgba(255,255,255,0.8)"}}/>
+        <Skeleton variant="rounded" height={40} width={140} sx={{background:"rgba(255,255,255,0.8)"}}/>
         </div>
      );
 }
@@ -74,7 +74,7 @@ function UserTab() {
       }
 
     return ( 
-        <>{user? <div className="flex flex-col gap-3 items-center pb-4">
+        <>{(!loading&&user)? <div className="flex flex-col gap-3 items-center pb-4">
             <Modal open={isOpen} onClose={() => {
                 onClose();
             }} disableAutoFocus>
@@ -95,11 +95,12 @@ function UserTab() {
                     </div>
                 </div>
             </Modal>
-            <div className="flex gap-3">
+            <div className="flex gap-3 max-w-[80%]">
             <div className="cursor-pointer rounded-full relative h-fit">
             <div className="absolute hover:bg-blue-400/60 text-white w-full h-full pt-[0.35rem] pl-[0.5rem] hover:opacity-100 opacity-0 rounded-full">
             <input onChange={async (e: ChangeEvent<HTMLInputElement>) => {
                 if (e.target.files && e.target.files[0]) {
+                 setLoading(true)
                  const selectedImage = e.target.files[0];
                  const newUrl=await handleUpload(selectedImage, "logos")
                  await updateUser("id",user.id,"photoUrl",newUrl)
@@ -111,7 +112,7 @@ function UserTab() {
                            <AppToast variant="SUCCESS" title="Profile picture updated" Icon={Check} />
                         ),
                      });
-                 })
+                 }).finally(()=>setLoading(false))
                }
               }} 
              type="file" id="logoInputUser" className='opacity-0 w-0 h-0'/>
@@ -123,7 +124,7 @@ function UserTab() {
           <StyledEditableText
             suppressContentEditableWarning={true}
             ref={paragraphRef}
-            className="text-white font-bold relative"
+            className={`text-white font-bold relative min-w-[6rem] outline-none ${editIntroductoryText&&"border-2 border-primary-blue bg-white !text-black"}`}
             autoFocus={editIntroductoryText}
             contentEditable={editIntroductoryText}
           >
@@ -145,18 +146,18 @@ function UserTab() {
               className="rounded-full bg-green-500 py-1 px-[0.30rem] text-white transition-all h-fit text-sm"
               onClick={async() => {
                 setEditIntroductoryText(false)
+                setLoading(true)
                 await updateUser("id",user.id,"name",paragraphRef.current?.innerText)
                 
                 await updateCurrentUser()
                 .then(async ()=>{
-                    await updateCurrentUser()
                     toast({
                         position: 'bottom-left',
                         render: () => (
                            <AppToast variant="SUCCESS" title="Account name updated" Icon={Check} />
                         ),
                      });
-                 })
+                 }).finally(()=>setLoading(false))
               }}
             >
               <Check style={{fontSize:"18px"}}/>

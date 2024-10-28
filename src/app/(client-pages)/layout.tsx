@@ -5,7 +5,7 @@ import "../globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "True Flowing | Loading...",
+  title: "True Flowing - Loading...",
   icons: {
     icon: '/logoLight.png',
   },

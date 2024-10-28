@@ -10,7 +10,7 @@ export async function generateMetadata({ params }: { params: { provider: string[
 
   if (provider) {
     return {
-      title: `${provider.name}`,
+      title: `${provider.name} - True Flowing`,
       icons: {
         icon: '/logoLight.png',
       }, // Use provider's name for the title

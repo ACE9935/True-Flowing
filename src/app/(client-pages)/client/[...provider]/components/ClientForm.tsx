@@ -261,7 +261,7 @@ function ClientForm({handler}:TransitionalClientComponent) {
            </>
           </Modal>
           <div className="flex flex-col gap-4">
-          <img src={globalState.qrCode?.meta.logoImg} className="w-auto h-[6rem] self-center"/>
+          <img src={globalState.qrCode?.meta.logoImg} className="w-auto h-[6rem] self-center mb-4"/>
           <p className="text-lg text-center font-medium text-slate-600 relative pb-6">To get started, please enter your information below to proceed.</p>
           </div>
        <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-[90%]">

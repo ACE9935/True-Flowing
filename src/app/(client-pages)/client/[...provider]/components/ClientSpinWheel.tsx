@@ -125,7 +125,7 @@ function ClientSpinWheel() {
     return ( 
     <div className="p-9 rounded-lg w-full max-w-[34rem] flex flex-col items-center">
         <div className="flex flex-col gap-4">
-        <img src={globalState.qrCode?.meta.logoImg} className="w-auto h-[6rem] self-center"/>
+        <img src={globalState.qrCode?.meta.logoImg} className="w-auto h-[6rem] self-center mb-4"/>
         <p className="text-lg text-center font-medium text-slate-600 relative pb-6">Now it's your time to spin the wheel to test your luck and win a prize!</p>
         </div>
         <Modal open={isOpen} onClose={onClose} disableAutoFocus>

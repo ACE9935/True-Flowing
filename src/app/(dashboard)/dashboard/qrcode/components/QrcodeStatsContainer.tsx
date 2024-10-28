@@ -117,7 +117,7 @@ return (<Modal open={isOpen} onClose={() => {
 
         <div className="flex gap-3">
             <button className="border-2 border-primary-color font-bold text-black rounded-full p-3 flex gap-2 items-center" onClick={onClose}>Cancel</button>
-            <button onClick={() => deleteQRCode()} className="bg-primary-color font-bold text-white rounded-full p-3 flex gap-2 items-center">{loading && <AppSpinner variant="LIGHT" size={26} />}Delete</button>
+            <button onClick={() => deleteQRCode()} className="bg-primary-color font-bold text-white rounded-full py-3 px-5 flex gap-2 items-center">{loading && <AppSpinner variant="LIGHT" size={26} />}Delete</button>
         </div>
     </div>
 </Modal>)}

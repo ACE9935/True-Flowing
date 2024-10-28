@@ -4,11 +4,11 @@ import { FormEvent, useState } from "react";
 import ClientInput from "./ClientInput";
 import PhoneInput from "./PhoneInput";
 import { updateUserFieldOfTypeArray } from "@/firebase/updateUserFieldOfTypeArray";
-import { Alert } from "@mui/material";
+import { Alert, Checkbox, FormControl, FormControlLabel } from "@mui/material";
 import AppSpinner from "@/components/AppSpinner";
 import { Box, Modal } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../client-state/hooks";
-import { setClientEmail, setClientName, setClientPhoneNumber, setSubmitDate } from "../client-state/client-state";
+import { setClientEmail, setClientName, setClientNotifications, setClientPhoneNumber, setClientPlcs, setSubmitDate } from "../client-state/client-state";
 import { TransitionalClientComponent } from "./ClientPageSections";
 var validator = require('validator');
 import { db } from "@/firebase/firebase";
@@ -83,6 +83,8 @@ export async function addClientPhoneNumberOrEmail(userId: string, fieldToUpdate:
 
 export interface ClientInfos {
     submitDate: string
+    acceptPlcs:boolean
+    acceptNotifications:boolean
     id:string
     name:string
     email:string
@@ -138,7 +140,7 @@ function ClientForm({handler}:TransitionalClientComponent) {
   const [formError,setFormError]=useState('')
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [isOpenInfo,setIsOpenInfo]=useState(true)
-  const [errors,setErrors]=useState({name:{status:false,msg:""},email:{status:false,msg:""},phoneNumber:{status:false,msg:""}})
+  const [errors,setErrors]=useState({name:{status:false,msg:""},email:{status:false,msg:""},phoneNumber:{status:false,msg:""},acceptPlcs:{status:false,msg:""},acceptNotifications:{status:false,msg:""}})
 
   const handleSubmit = async (e: FormEvent) => {
       e.preventDefault();
@@ -168,6 +170,14 @@ function ClientForm({handler}:TransitionalClientComponent) {
     
         if (globalState.client.infos.email !== "" && !validator.isEmail(globalState.client.infos.email)) {
           setErrors(prev => ({ ...prev, email: { status: true, msg: "Invalid email" } }));
+          hasErrors = true;
+        }
+        if (!globalState.client.infos.acceptPlcs) {
+          setErrors(prev => ({ ...prev, acceptPlcs: { status: true, msg: "Please check this box" } }));
+          hasErrors = true;
+        }
+        if (!globalState.client.infos.acceptNotifications) {
+          setErrors(prev => ({ ...prev, acceptNotifications: { status: true, msg: "Please check this box" } }));
           hasErrors = true;
         }
     
@@ -285,7 +295,28 @@ function ClientForm({handler}:TransitionalClientComponent) {
                     dispatch(setClientPhoneNumber(x))} 
               }
               label="Phone number"/>
-              
+              <FormControl error={!!errors?.acceptPlcs.status}>
+            {errors?.acceptPlcs.status && <span className="text-[0.75rem] text-[#d32f2f]">{errors?.acceptPlcs.msg}</span>}
+            <FormControlLabel sx={{
+              alignItems: "center",
+              gap: "3px"
+            }}
+              control={<Checkbox
+                checked={globalState.client.infos.acceptPlcs} 
+                onChange={() => dispatch(setClientPlcs(!globalState.client.infos.acceptPlcs))} />}
+                label={<p>I agree with the <a href="/terms-of-use" target="_blank" className="text-primary-blue underline">privacy policy and terms</a></p>} />
+          </FormControl>
+          <FormControl error={!!errors?.acceptNotifications.status}>
+            {errors?.acceptNotifications.status && <span className="text-[0.75rem] text-[#d32f2f]">{errors?.acceptNotifications.msg}</span>}
+            <FormControlLabel sx={{
+              alignItems: "start",
+              gap: "3px"
+            }}
+              control={<Checkbox
+                checked={globalState.client.infos.acceptNotifications} 
+                onChange={() => dispatch(setClientNotifications(!globalState.client.infos.acceptNotifications))} />}
+                label={<p>I agree to receive notifications and gifts from the establishment</p>} />
+          </FormControl>
               <button type="submit" className="bg-primary-color p-3 font-bold rounded-full text-white self-center px-6 flex gap-2">Continue {loading&&<AppSpinner size={25} variant="LIGHT"/>}</button>
   </form>
   </div>

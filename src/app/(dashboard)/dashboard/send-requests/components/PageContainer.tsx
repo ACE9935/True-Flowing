@@ -53,7 +53,7 @@ function PageContainer() {
          {user ? (
             <div className="px-6 py-6 flex flex-col gap-10">
                <div>
-                  <h1 className="text-3xl font-bold pb-2">Automated Notification System</h1>
+                  <h1 className="text-3xl font-bold pb-2">Notification System</h1>
                   <p className="text-slate-600 text-lg">
                      Our application automatically sends personalized SMS and emails to clients. This ensures appointment reminders and important notifications, improving communication and customer satisfaction.
                   </p>

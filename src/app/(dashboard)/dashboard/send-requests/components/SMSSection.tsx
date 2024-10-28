@@ -20,6 +20,7 @@ function SMSSection() {
       <div>
          <h2 className="font-bold text-lg pb-3">Request Feedback via SMS</h2>
          <div className="bg-white rounded-lg border-2 py-8 px-6">
+         {!user?.clients.length&&<Alert severity="warning" className="mb-3">You need atleat 1 registered client to start sending notifications</Alert>}
             <h3 className="font-semibold pb-6">Invite Your Clients</h3>
             <button 
                onClick={() => router.push("/dashboard/clients")} 

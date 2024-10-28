@@ -126,9 +126,9 @@ function EmailCustomizerForm({ automate, automateValue, automateType,init }: { i
                   </div>
                   <div className="mt-8 flex justify-end gap-3">
                      <button
-                        className="p-3 px-4 rounded-md font-bold text-md bg-primary-color text-white flex gap-2"
+                        className="p-3 disabled:bg-slate-500 disabled:opacity-75 px-4 rounded-md font-bold text-md bg-primary-color text-white flex gap-2"
                         type="submit"
-                        disabled={loading}
+                        disabled={!user.clients.length||loading}
                      >
                         <>{loading && <AppSpinner variant="LIGHT" size={25} />}{`${init?"Send":""}${automate?"/Automate":""}`}<Send/></>
                      </button>

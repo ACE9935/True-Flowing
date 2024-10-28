@@ -7,15 +7,17 @@ import { FormEvent, useEffect, useState } from "react";
 import { doSignInWithEmailAndPassword, doSignInWithGoogle } from "@/firebase/auth";
 import { Alert } from "@mui/material";
 import { LoginResponse, SignUpResponse } from "@/types";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import ResetPwd from "./ResetPwd";
 import { useToast } from "@chakra-ui/react";
 import AppToast from "../AppToast";
-import { CheckCircle } from "@mui/icons-material";
+import { Check, CheckCircle } from "@mui/icons-material";
 import AppSpinner from "../AppSpinner";
 import Logo from "../Logo";
 
 function LoginForm({ resetPassword }: { resetPassword: string | null }) {
+    
+    const searchParams = useSearchParams();
     const [initialUser, setInitialUser] = useState({ email: "", pwd: "" });
     const [response, setResponse] = useState<LoginResponse>({ errorMsg: null, status: null });
     const [isRegistering, setIsRegistering] = useState(false);
@@ -45,6 +47,17 @@ function LoginForm({ resetPassword }: { resetPassword: string | null }) {
     useEffect(() => {
         if (response.status === "OK") router.push("/dashboard");
     }, [response]);
+
+  useEffect(() => {
+    if (searchParams.get("verifiedUser")) {
+      toast({
+        position: "bottom-left",
+        render: () => (
+          <AppToast variant="SUCCESS" title="Email successfully verified, log in to access your account" Icon={Check} />
+        ),
+      });
+    }
+  }, [searchParams, toast]);
 
     return (
         <div className="bg-secondary-color p-9 rounded-lg w-full max-w-[28rem]">

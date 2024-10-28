@@ -126,7 +126,7 @@ function SignUpForm() {
               gap: "3px"
             }}
               control={<Checkbox
-                checked={initialUser.acceptPlcs} onChange={() => setInitialUser(prev => ({ ...prev, acceptPlcs: !prev.acceptPlcs }))} />} label="I agree with the privacy policy and terms of use of this website" />
+                checked={initialUser.acceptPlcs} onChange={() => setInitialUser(prev => ({ ...prev, acceptPlcs: !prev.acceptPlcs }))} />} label={<p>I agree with the <a target="_blank" href="/terms-of-use" className="text-primary-blue underline">privacy policy and terms</a> of this website</p>} />
           </FormControl>
           <BasicButton type="submit">Sign Up</BasicButton>
         </form>

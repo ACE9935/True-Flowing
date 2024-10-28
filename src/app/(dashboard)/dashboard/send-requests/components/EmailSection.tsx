@@ -1,11 +1,12 @@
 "use client";
 import { AutomateType, User } from "@/types";
-import { Checkbox, MenuItem } from "@mui/material";
+import { Alert, Checkbox, MenuItem } from "@mui/material";
 import { useEffect, useState } from "react";
 import { StyledSelect } from "./PageContainer";
 import EmailCustomizerForm from "./EmailCustomizerForm";
 import { useUser } from "@/context/authContext";
 import { useRouter } from "next/navigation";
+import { Info } from "@mui/icons-material";
 
 function EmailSection() {
    const [automate, setAutomate] = useState(false);
@@ -19,6 +20,7 @@ function EmailSection() {
       <div>
          <h2 className="font-bold text-lg pb-3">Email Review Request</h2>
          <div className="bg-white rounded-lg border-2 py-8 px-6">
+         {!user?.clients.length&&<Alert severity="warning" className="mb-3">You need atleat 1 registered client to start sending notifications</Alert>}
             <h3 className="font-semibold pb-6">Invite Your Clients</h3>
             <button className="rounded-md font-bold text-white bg-black p-3" onClick={() => router.push("/dashboard/clients")}>View Your Registered Clients</button>
             <div className="mt-3 flex items-center">
@@ -44,6 +46,7 @@ function EmailSection() {
                </div>
                </div>
             )}
+            <p className=" text-slate-600 flex gap-1 mt-1 font-semibold"><Info sx={{color:"#97a2ff"}}/>Automated notifications are messages sent to users at scheduled intervals to inform them about important events or updates without manual intervention.</p>
             <EmailCustomizerForm automateType={automateType} init={init} automate={automate} automateValue={automateValue} />
          </div>
       </div>

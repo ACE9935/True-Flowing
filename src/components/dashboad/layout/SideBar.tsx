@@ -20,7 +20,7 @@ const links = [
     icon: People
   },
   {
-    title: "Automation",
+    title: "Send Notifications",
     url: "/dashboard/send-requests",
     icon: NotificationAddOutlined
   }

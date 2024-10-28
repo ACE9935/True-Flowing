@@ -8,6 +8,8 @@ const initialState:ClientPageState={
     client:{
         infos:{
             id:"",
+            acceptPlcs:false,
+            acceptNotifications:false,
             name:"",
             email:"",
             phoneNumber:"",
@@ -30,11 +32,13 @@ const initialState:ClientPageState={
         setClientName:(state,action)=>{state.client.infos.name=action.payload},
         setClientEmail:(state,action)=>{state.client.infos.email=action.payload},
         setClientPhoneNumber:(state,action)=>{state.client.infos.phoneNumber=action.payload},
+        setClientPlcs:(state,action)=>{state.client.infos.acceptPlcs=action.payload},
+        setClientNotifications:(state,action)=>{state.client.infos.acceptNotifications=action.payload},
         setQRCodeId:(state,action)=>{state.client.infos.qrcodeId=action.payload},
         setSubmitDate:(state,action)=>{state.client.infos.submitDate=action.payload},
     },
   })
 
-export const { setProviderId,setQRCode,setSavedClient,setProviderName, setClientId, setClientEmail,setClientPhoneNumber,setClientName,setQRCodeId,setSubmitDate } = ClientPageSlice.actions
+export const { setProviderId,setClientNotifications,setQRCode,setSavedClient,setProviderName, setClientPlcs, setClientId, setClientEmail,setClientPhoneNumber,setClientName,setQRCodeId,setSubmitDate } = ClientPageSlice.actions
 
 export default ClientPageSlice.reducer

@@ -170,7 +170,7 @@ const ClientsTable: React.FC<ClientsTableProps> = ({ data, startIndex,color,ligh
                 <td className="py-2 px-4 border-b border-gray-300">{client.infos.email}</td>
                 <td className="py-2 px-4 border-b border-gray-300">{client.infos.phoneNumber}</td>
                 <td className="py-2 px-4 border-b border-gray-300">{client.infos.submitDate}</td>
-                <td className="py-2 px-4 border-b border-gray-300">{user?.qrCodes?.find((qrcode:UserQRCode) => qrcode.id === client.infos.qrcodeId)?.name}</td>
+                <td className="py-2 px-4 border-b border-gray-300">{user?.qrCodes?.find((qrcode:UserQRCode) => qrcode.id === client.infos.qrcodeId)?.name||<p className="font-bold text-red-400">Deleted QRCode</p>}</td>
                 {type=="winners"&&<><td className="py-2 px-4 border-b border-gray-300 text-left">{client.infos.winningCode}</td>
                   <td className="py-2 px-4 border-b border-gray-300 text-left font-bold">{client.infos.prize}</td></>}
               </tr>

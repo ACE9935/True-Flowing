@@ -22,7 +22,7 @@ export default function Home() {
   return (
     <main className='w-full min-h-screen'>
       <nav className="pt-4 pb-1 px-6 flex justify-between items-center">
-        <div className="text-sm sm:text-lg"><Logo variation="light"/></div>
+        <div className="text-xs sm:text-md"><Logo variation="light"/></div>
         <button className="bg-gradient-to-r from-primary-blue-light hover:bg-black/20 bg-blend-overlay to-primary-blue-dark transition-all rounded-lg text-white py-3 font-semibold px-6">Sign in</button>
       </nav>
       <section className="p-6">

@@ -68,9 +68,9 @@ function PageContainer({ type, color, lightColor, theme, title, description }: {
                         <h1 className="text-3xl font-bold pb-2">{title}</h1>
                         <p className="text-slate-600 text-lg">{description}</p>
                     </div>
-                    {selectedData?.length&&<button onClick={downloadExcel} className="px-4 py-2 flex items-center gap-2 bg-green-700 hover:bg-green-800 text-white font-bold rounded mb-4">
+                    {selectedData?.length?<button onClick={downloadExcel} className="px-4 py-2 flex items-center gap-2 bg-green-700 hover:bg-green-800 text-white font-bold rounded mb-4">
                         <img width={25} src="/excel.png"/>Download Excel
-                    </button>}
+                    </button>:<></>}
                     <ClientsTable theme={theme} color={color} lightColor={lightColor} type={type} data={paginatedData} startIndex={(currentPage - 1) * itemsPerPage} />
                     <div className="pt-6 flex justify-center">
                         <Pagination

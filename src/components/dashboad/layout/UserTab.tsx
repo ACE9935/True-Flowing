@@ -118,7 +118,7 @@ function UserTab() {
              type="file" id="logoInputUser" className='opacity-0 w-0 h-0'/>
             <label htmlFor="logoInputUser" className="w-full h-full rounded-full cursor-pointer absolute"></label>
                 <Edit/></div>
-            <div style={{background:`url(${user.photoUrl})`}} className="w-[40px] h-[40px] rounded-full !bg-cover !bg-center"></div></div>
+            <div style={{backgroundImage:`url(${user.photoUrl})`}} className="w-[40px] h-[40px] rounded-full !bg-cover !bg-center"></div></div>
             <div className="flex flex-col">
             <div className="relative w-full">
           <StyledEditableText

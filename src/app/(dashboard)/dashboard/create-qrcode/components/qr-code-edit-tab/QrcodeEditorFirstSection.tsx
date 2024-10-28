@@ -82,9 +82,9 @@ function QrcodeEditorFirstSection({ handler, isLoading }: { handler: () => void,
         {qrCodeState.type == "Basic" ? 
           <p className="text-sm text-slate-600">Please fill in the input field with the link you'd like your QR code to direct users to. For example, you can enter a link to your social media profile or website.</p> 
           : 
-          <p className="text-sm text-slate-600">Dynamic Content for QR code.</p>
+          <p className="text-sm text-slate-600">Premium Content for QR code.</p>
         }
-        <span className="font-bold">Dynamic QR code: 
+        <span className="font-bold">Premium QR code: 
           <QrcodeSwitch
             onChange={(e) => dispatch(setQRCodeType(qrCodeState.type == "Premium" ? "Basic" : "Premium"))}
             checked={qrCodeState.type == "Premium"}

@@ -25,8 +25,8 @@ export default function Home() {
         <div className="text-xs sm:text-md"><Logo variation="light"/></div>
         <button className="bg-gradient-to-r from-primary-blue-light hover:bg-black/20 bg-blend-overlay to-primary-blue-dark transition-all rounded-lg text-white py-3 font-semibold px-6">Sign in</button>
       </nav>
-      <section className="p-6">
-        <div style={{backgroundImage:"url('/hero.jpg')"}} className="rounded-xl flex flex-col gap-8 items-center py-32 bg-cover bg-center bg-primary-blue-dark bg-blend-multiply">
+      <section className="sm:p-6 pt-6">
+        <div style={{backgroundImage:"url('/hero.jpg')"}} className="sm:rounded-xl flex flex-col gap-8 items-center py-32 bg-cover bg-center bg-primary-blue-dark bg-blend-multiply">
          <h1 className="font-bold text-center text-3xl md:text-5xl text-white flex flex-col gap-4">
           <div>Unlock Free, Tailored Marketing Strategies</div>
            <div className="text-primary-blue-light">To Drive Enterprise Successs</div>

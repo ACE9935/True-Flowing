@@ -9,6 +9,9 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "True Flowing",
+  icons: {
+    icon: '/logoLight.png',
+  },
   description: "Unlock Free, Tailored Marketing Strategies to Drive Enterprise Successs",
 };
 

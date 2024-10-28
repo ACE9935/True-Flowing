@@ -3,6 +3,7 @@ import { Casino, Insights, Notifications, ShowChart } from "@mui/icons-material"
 import { SvgIconTypeMap } from "@mui/material";
 import { OverridableComponent } from "@mui/material/OverridableComponent";
 
+
 const InfosArticle = ({reverseContent,title,description,imgUrl,Icon}:{reverseContent?:boolean,title:string,description:string,imgUrl:string,Icon:OverridableComponent<SvgIconTypeMap<{}, "svg">> & {
   muiName: string;
 }})=>{
@@ -15,6 +16,14 @@ const InfosArticle = ({reverseContent,title,description,imgUrl,Icon}:{reverseCon
        </article>
        <img src={imgUrl} width={450} className="object-contain"/>
        </div>)
+}
+
+const BenefitsCard = ({rate,description}:{rate:string,description:string})=>{
+
+  return(<div className="flex flex-col gap-2 border-2 items-center rounded-lg p-4 grow">
+    <div className="text-primary-blue text-3xl font-bold">{rate}</div>
+    <h2 className="font-semibold text-slate-600">{description}</h2>
+  </div>)
 }
 
 export default function Home() {
@@ -38,9 +47,28 @@ export default function Home() {
       <section className="bg-slate-300/30 px-6 py-12 flex flex-col gap-14">
       <h1 className="text-4xl pb-8 font-bold text-center">True Flowing’s Features</h1>
       <InfosArticle Icon={Insights} imgUrl="/screen-shots/ssone.png" title="Dynamic QR Code Generator with Real-Time Scan Tracking" description="With True Flowing’s dynamic QR code tool, you can create QR codes that track scan counts and allow you to update the linked URL anytime. Perfect for flexible campaigns, product updates, or events—gain insights in real-time and make adjustments without reprinting or resending codes."/>
-      <InfosArticle reverseContent Icon={Casino} imgUrl="/screen-shots/ss-234.png" title="Premium QR Codes: Boost Engagement with Prize Roulette and Reviews" description="True Flowing’s Premium QR Codes feature lets businesses create engaging, custom QR codes that boost client interaction and feedback. When customers scan a Premium QR Code, they’re directed to a prize roulette game where they can enter their information and leave a review for the establishment. This fun, interactive approach not only offers clients a chance to win but also helps establishments gather valuable contact information and genuine reviews, enhancing customer engagement while building a loyal audience."/>
-      <InfosArticle Icon={Notifications} imgUrl="/screen-shots/ss56.png" title="True Flowing’s Notification System: Engage Clients with Targeted Campaigns" description="True Flowing’s Notification System allows businesses to send personalized emails and SMS notifications directly to clients registered through Premium QR Codes. By leveraging contacts gathered through these interactive codes, establishments can easily create and manage targeted notification campaigns to keep clients informed about special offers, events, or updates. This feature empowers businesses to build lasting client relationships, transforming every interaction into an opportunity for engagement and loyalty."/>
+      <InfosArticle reverseContent Icon={Casino} imgUrl="/screen-shots/ss-234.png" title="Premium QR Codes: Boost Engagement with Prize Roulette and Reviews" description="True Flowing’s Premium QR Codes let businesses create custom, engaging QR codes that boost client interaction. When scanned, customers are directed to a prize roulette game where they can enter their information and leave a review, adding an element of fun while helping establishments gather genuine feedback. Additionally, collected contact information can be exported as an Excel file, making it easy for businesses to organize and use the data for personalized marketing, customer follow-ups, or targeted promotions. This interactive approach not only enhances customer engagement but also builds loyalty and maximizes the value of each interaction."/>
+      <InfosArticle Icon={Notifications} imgUrl="/screen-shots/ss56.png" title="True Flowing’s Notification System: Engage Clients with Targeted Campaigns" description="
+True Flowing’s Notification System lets businesses send personalized emails and SMS notifications to clients registered through Premium QR Codes. By using contacts gathered through these QR codes, establishments can create targeted campaigns to keep clients informed of special offers, events, or updates—turning each interaction into an opportunity to build engagement and loyalty."/>
       </section>
+      <section className="px-6 py-12 flex flex-col gap-14 items-center">
+      <h1 className="text-4xl font-bold text-center">True Flowing’s Benefits</h1>
+      <article className="flex justify-center gap-6 flex-wrap max-w-[800px] w-full" >
+        <BenefitsCard rate="+60%" description="Reviews Increase"/>
+        <BenefitsCard rate="+30%" description="Visits Increase"/>
+        <BenefitsCard rate="+60%" description="Customer Satisfaction"/>
+      </article>
+      </section>
+      <footer className="p-6 bg-slate-300/30 flex flex-col gap-12">
+      <div className="flex flex-col gap-2">
+        <h1 className="font-bold text-3xl"><div>For colaboration</div> <div className="text-primary-blue">Feel free to conact me</div></h1>
+        <div className="underline text-primary-blue">anaselmouden99@gmail.com</div>
+        </div>
+      <div className="flex justify-between flex-wrap gap-2">
+      <p className="">© 2024 True Flowing, all rights reserved</p>
+      <div>Made by <a href="https://anas-elmouden-portfolio.vercel.app/" className="underline text-primary-blue">Anas El Mouden</a></div>
+      </div>
+      </footer>
     </main>
   );
 }

@@ -195,7 +195,7 @@ function ClientSpinWheel() {
                 setMustSpin(true)
                 setPrizeNumber(Math.floor(Math.random() * globalState.qrCode?.meta.spinWheelData.options.length!))}
                }}
-             className="bg-primary-color font-bold text-white p-4 rounded-full disabled:opacity-[0.6] px-8" disabled={hasPlayed}>Spin</button>
+             className="bg-primary-color font-bold text-white p-4 rounded-full disabled:opacity-[0.6] px-8 mt-2" disabled={hasPlayed}>Spin</button>
         </div>
      );
 }

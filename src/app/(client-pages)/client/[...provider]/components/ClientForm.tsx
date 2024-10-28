@@ -248,7 +248,7 @@ function ClientForm({handler}:TransitionalClientComponent) {
             <motion.div
             initial={{scale:0}}
             animate={{scale:1}}
-            className='p-6 sm:px-14 flex flex-col items-center gap-6 rounded-md md:w-[30rem] bg-slate-100'
+            className='p-6 sm:px-14 flex flex-col items-center gap-6 rounded-md w-[90%] md:w-[30rem] bg-slate-100'
             transition={{type:"spring"}}
             >
             <h1 className='text-center text-2xl'>Alert</h1>

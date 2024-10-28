@@ -12,6 +12,8 @@ const config: Config = {
         "primary-color":'var(--primary-color)',
         "secondary-color": 'var(--secondary-color)',
         "primary-blue":'var(--primary-blue)',
+        "primary-blue-light":'var(--primary-blue-light)',
+        "primary-blue-extra-light":'var(--primary-blue-extra-light)',
         "primary-blue-dark":'var(--primary-blue-dark)',
         "title-secondary": 'var(--title-secondary)',
         "content-secondary": 'var(--content-secondary)',

@@ -145,6 +145,7 @@ export default function Dashboard() {
                   <th className="px-5 py-2">Email</th>
                   <th className="px-5 py-2">Phone</th>
                   <th className="px-5 py-2">Scanned QRCode</th>
+                  
                 </tr>
               </thead>
               <tbody>

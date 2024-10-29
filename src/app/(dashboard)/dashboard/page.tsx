@@ -86,7 +86,7 @@ export default function Dashboard() {
                 See all
               </button>
             </div>
-            <table className="w-full table-auto text-left min-w-[45rem]">
+            <table className={`w-full table-auto text-left ${!user?.winnerClients.length&&"min-w-[45rem]"}`}>
               <thead className="text-slate-500 border-b-2">
                 <tr>
                   <th className="px-5 py-2">Name</th>
@@ -138,7 +138,7 @@ export default function Dashboard() {
                 See all
               </button>
             </div>
-            <table className="w-full min-w-[45rem] table-auto text-left">
+            <table className={`w-full table-auto text-left ${!user?.winnerClients.length&&"min-w-[45rem]"}`}>
               <thead className="text-slate-500 border-b-2">
                 <tr>
                   <th className="px-5 py-2">Name</th>

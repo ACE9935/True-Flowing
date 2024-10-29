@@ -1,8 +1,8 @@
 import { ElementType, ReactNode } from "react";
 
 function AppToast({title,Icon,variant}:{title:string,Icon:ElementType,variant:"SUCCESS"|"ERROR"|"INFO"}) {
-    const color=variant === 'SUCCESS' ? 'bg-green-500' :
-                variant === 'ERROR' ? 'bg-red-500' :
+    const color=variant === 'SUCCESS' ? 'bg-green-400' :
+                variant === 'ERROR' ? 'bg-red-400' :
                 variant === 'INFO' ? 'bg-black' :
                 'bg-black'; 
     return ( 

@@ -97,7 +97,7 @@ function UserTab() {
             </Modal>
             <div className="flex gap-3 max-w-[80%]">
             <div className="cursor-pointer rounded-full relative h-fit">
-            <div className="absolute hover:bg-blue-400/60 text-white w-full h-full pt-[0.35rem] pl-[0.5rem] hover:opacity-100 opacity-0 rounded-full">
+            <div className="absolute hover:bg-blue-400/60 text-white w-full h-full pt-[0.6rem] pl-[0.74rem] hover:opacity-100 opacity-0 rounded-full">
             <input onChange={async (e: ChangeEvent<HTMLInputElement>) => {
                 if (e.target.files && e.target.files[0]) {
                  setLoading(true)
@@ -118,7 +118,7 @@ function UserTab() {
              type="file" id="logoInputUser" className='opacity-0 w-0 h-0'/>
             <label htmlFor="logoInputUser" className="w-full h-full rounded-full cursor-pointer absolute"></label>
                 <Edit/></div>
-            <div style={{backgroundImage:`url(${user.photoUrl})`}} className="w-[40px] h-[40px] rounded-full !bg-cover !bg-center"></div></div>
+            <div style={{backgroundImage:`url(${user.photoUrl})`}} className="w-[50px] h-[50px] rounded-full !bg-cover !bg-center"></div></div>
             <div className="flex flex-col">
             <div className="relative w-full">
           <StyledEditableText

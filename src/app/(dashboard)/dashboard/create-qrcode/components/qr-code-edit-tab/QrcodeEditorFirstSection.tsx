@@ -175,7 +175,8 @@ function QrcodeEditorFirstSection({ handler, isLoading }: { handler: () => void,
           style={{
             borderRadius: "100px",
             display: "flex",
-            gap: '1rem'
+            gap: '1rem',
+            paddingInline:"1.5rem"
           }}
         >
           {qrCodeState.type == "Premium" ? "Continue" : "Finish"} {isLoading ? <AppSpinner variant="LIGHT" size={25}/> : <></>}

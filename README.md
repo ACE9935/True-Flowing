@@ -1,36 +1,54 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# True Flowing 🚀
 
-## Getting Started
+[Live Demo](https://true-flowing.vercel.app/) • [GitHub Repo](https://github.com/ACE9935/True-Flowing)
 
-First, run the development server:
+**True Flowing** is a dynamic customer engagement platform built with **Next.js** and **React**, hosted on **Vercel**. It allows businesses to generate dynamic QR codes, track scan data in real-time, and engage customers with interactive features like prize roulette and reviews.
+
+---
+
+## 🌟 Features
+
+### 🔐 Authentication (Firebase)
+- Users can authenticate via **Google** or **Email/Password**.
+- Authentication is handled by **Firebase**.
+- Upon successful authentication, users can access all features of the app.
+- User data is stored securely in **Firebase Firestore**.
+
+### 🎨 QR Code Generation
+- **Customizable QR Codes** with options for color and pattern selection.
+- **Two Types of QR Codes**:
+  - **Basic QR Codes**: Link to a URL (e.g., Instagram page), track scans, and store data for analytics.
+  - **Premium QR Codes**: Redirect users to a custom landing page, collect information (name, email, phone number), request reviews (Google/Facebook), and provide access to a **prize roulette**. Winners receive an SMS with a prize code to redeem their reward.
+
+### 📊 Data Visualization
+- Track and visualize **daily scans** of QR codes using **Google Cloud services**.
+- User dashboards display insightful **charts** to monitor performance (scans, reviews, winners).
+  
+### 📧 Email/SMS Campaigns
+- **Client Data Export**: Export customer information collected through scanned **Premium QR Codes** to an Excel file.
+- **Campaign Management**: Use client data for targeted **email** or **SMS** campaigns, as well as **promotions** or **automated campaigns**.
+
+---
+
+## 🧑‍💻 Tech Stack
+
+- **Frontend**: React, Next.js, MUI React, Tailwind
+- **App State Management**: Redux Toolkit
+- **Backend**: API routes (Serverless functions)
+- **Authentication**: Firebase Authentication (Google and Email/Password)
+- **Database**: Firebase Firestore
+- **QR Generation**: Custom logic for dynamic QR codes
+- **Data Visualization**: Google Cloud services for tracking and reporting
+- **Deployment**: [Vercel](https://vercel.com/)
+
+---
+
+## 🛠 Getting Started
+
+To run the project locally:
 
 ```bash
+git clone https://github.com/ACE9935/True-Flowing.git
+cd True-Flowing
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.

@@ -5,36 +5,48 @@ import { auth } from "./firebase";
 import { db } from "./firebase";
 import axios from "axios";
 
+export async function addUser(user: User, provider: "Google" | "Email") {
+  const collectionRef = collection(db, "users");
 
+  try {
+    // Handle email verification if needed
+    if (provider === "Email") {
+      const response = await axios.post("/api/generate-verification-token", {
+        email: user.email,
+      });
 
-export async function addUser(user:User,provider:"Google"|"Email") {
-    try {
-        const collectionRef = collection(db, 'users'); 
-        if(provider=="Email"){
-            const response = await axios.post('/api/generate-verification-token', {
-             email:user.email
-            });
-            if(!response.data){
-                await deleteUser(auth.currentUser!);
-                throw Error("Unable to signin user")
-              }
-            user={...user,verificationToken:response.data}
-        }
-        // Check if a document with the same ID already exists
-        const q = query(collectionRef, where("id", "==", user.id));
-        const querySnapshot = await getDocs(q);
-        
-        if (querySnapshot.empty) {
-            const docRef = await addDoc(collectionRef, user);
-            console.log("User added to the store");
-            return user
-        }else{
-            console.log("User already exists in the store");
-            return null
-        }
+      const token = response?.data;
 
-    } catch (error) {
-        console.error("Error adding document: ", error);
-        throw error; // Re-throwing the error to be handled by the caller
+      if (!token) {
+        throw new Error("Unable to sign in user: missing verification token");
+      }
+
+      user = { ...user, verificationToken: token };
     }
+
+    // Check if user already exists in Firestore
+    const q = query(collectionRef, where("id", "==", user.id));
+    const querySnapshot = await getDocs(q);
+
+    if (querySnapshot.empty) {
+      await addDoc(collectionRef, user);
+      console.log("User added to the store");
+      return user;
+    } else {
+      console.log("User already exists in the store");
+      return null;
+    }
+  } catch (error) {
+    console.error("Error adding user:", error);
+
+    // Clean up the Firebase auth user if something went wrong
+    try {
+      await deleteUser(auth.currentUser!);
+      console.log("Auth user deleted due to failure.");
+    } catch (deleteError) {
+      console.error("Failed to delete auth user:", deleteError);
+    }
+
+    throw error;
+  }
 }

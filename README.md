@@ -42,13 +42,3 @@
 - **Deployment**: [Vercel](https://vercel.com/)
 
 ---
-
-## 🛠 Getting Started
-
-To run the project locally:
-
-```bash
-git clone https://github.com/ACE9935/True-Flowing.git
-cd True-Flowing
-npm install
-npm run dev
